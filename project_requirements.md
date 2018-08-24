@@ -39,9 +39,9 @@
 
 ## USBATs
   1. User should be able to update Contacts.
-  1. User should be able to create Groups.
-  1. User should be able to add Contacts to Groups.
-
+  1. User should be able to create/delete Groups.
+  1. User should be able to add/delete Contacts to/from Groups.
+  1. User should be able to delete account.
 
 
 
