@@ -1,4 +1,4 @@
-var userSchema = new Schema({
+var userSchema = new mongoose.Schema({
     firstName: String,
     lastName: {type:String, default: 'Last Name'},
 
@@ -9,7 +9,7 @@ var userSchema = new Schema({
     // hashed password
     password: String,
     birthday: Date,
-    contacts: [{type:Schema.Types.ObjectId, ref:'Contact'}]
+    contacts: [{type:mongoose.Schema.Types.ObjectId, ref:'Contact'}]
 });
 
 var User = mongoose.model('User', userSchema);
@@ -20,11 +20,11 @@ var user1 = new User({
     email:"ricklein@ucf.edu",
     username:"ricklein",
     password:"picklerick",
-    birthday: Date.now,
+    birthday: Date.now(),
     contacts: []
 });
 
-user1.save(function(err, new_user)){
+user1.save(function(err, new_user){
     if(err) console.log(err);
     else console.log("New user added!\n" + new_user.toString());
-}
+});
