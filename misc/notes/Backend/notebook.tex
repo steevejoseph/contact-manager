@@ -1,0 +1,609 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Post Requests}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{post-requests}{%
+\subsection{Post Requests}\label{post-requests}}
+
+\begin{itemize}
+\tightlist
+\item
+  Write post routes, and test with Postman
+\item
+  Use a form to send a post request
+\item
+  Use body parser to get form data.
+\end{itemize}
+
+    \hypertarget{writing-post-requests}{%
+\subsubsection{Writing Post Requests}\label{writing-post-requests}}
+
+\begin{quote}
+The post route (post request) sends data to that is either added to a
+database, or otherwise being used on the server-side.
+\end{quote}
+
+\begin{quote}
+Use a POST route when adding data to database, \{a form is submitted,
+new user added, creating a new comment or post, etc\}.
+\end{quote}
+
+Example:
+
+\hypertarget{in-the-app.js-file}{%
+\paragraph{\texorpdfstring{In the \texttt{app.js}
+file:}{In the app.js file:}}\label{in-the-app.js-file}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{// Render an ejs template with a list of friends.}
+\VariableTok{app}\NormalTok{.}\AttributeTok{get}\NormalTok{(}\StringTok{"/friends"}\OperatorTok{,} \KeywordTok{function}\NormalTok{(req}\OperatorTok{,}\NormalTok{ res) }\OperatorTok{\{}
+  \KeywordTok{var}\NormalTok{ friends  }\OperatorTok{=}\NormalTok{ [}\StringTok{"all"}\OperatorTok{,} \StringTok{"my"}\OperatorTok{,} \StringTok{"friends"}\OperatorTok{,} \StringTok{"are"}\OperatorTok{,} \StringTok{"dead"}\NormalTok{]}\OperatorTok{;}
+  \VariableTok{res}\NormalTok{.}\AttributeTok{render}\NormalTok{(}\StringTok{"friends"}\OperatorTok{,} \OperatorTok{\{}\DataTypeTok{friends}\OperatorTok{:}\NormalTok{friends}\OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+\OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+
+\CommentTok{// The post route will look for a form whose action is "/addfriend",}
+\CommentTok{//   and run res.send() when/if it finds a matching form.}
+\CommentTok{// Otherwise, an error is thrown/displayed on the webpage.}
+\CommentTok{//   Usually, it's "Cannot POST '/url' ".}
+\VariableTok{app}\NormalTok{.}\AttributeTok{post}\NormalTok{(}\StringTok{"/addfriend"}\OperatorTok{,} \KeywordTok{function}\NormalTok{(req}\OperatorTok{,}\NormalTok{ res) }\OperatorTok{\{}
+  \VariableTok{res}\NormalTok{.}\AttributeTok{send}\NormalTok{(}\StringTok{"WE IN HERE (the post route)!}\SpecialCharTok{\textbackslash{}n}\StringTok{ We live baby, yeah!"}\NormalTok{)}\OperatorTok{;}
+\OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{in-the-friends.ejs-file}{%
+\paragraph{\texorpdfstring{In the \texttt{friends.ejs}
+file}{In the friends.ejs file}}\label{in-the-friends.ejs-file}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{<h1>}\NormalTok{FRIENDS GO HERE}\KeywordTok{</h1>}
+
+\CommentTok{<!-- List all friends-->}
+\ErrorTok{<}\NormalTok{% friends.forEach(function(friend)\{ %>}
+  \KeywordTok{<li>}\ErrorTok{<}\NormalTok{%= friend %>}\KeywordTok{</li>}
+\ErrorTok{<}\NormalTok{% \}); %>}
+
+\CommentTok{<!-- action is the url, method is the type of request \{GET, POST,etc\}-->}
+\CommentTok{<!-- "action" in the ejs file MUST match the url (the first arg of app.post()) of the post route in the app.js file-->}
+\KeywordTok{<form}\OtherTok{ action=}\StringTok{"/addfriend"}\OtherTok{ method=}\StringTok{"POST"}\KeywordTok{>}
+    
+  \CommentTok{<!--When this input is submitted, the post route will look for the form -->}
+  \CommentTok{<!--whose action is "/addfriend", and run (the code in) the post route.-->}
+  \KeywordTok{<input}\OtherTok{ type=}\StringTok{"text"}\OtherTok{ placeholder=}\StringTok{"name"}\KeywordTok{></input>}
+    
+  \CommentTok{<!-- (apparently submit is the default button type)-->}
+  \KeywordTok{<button>}\NormalTok{MAKE NEW FRIEND}\KeywordTok{</button>}
+\KeywordTok{</form>}
+\end{Highlighting}
+\end{Shaded}
+
+    \hypertarget{getting-form-data-out-of-form}{%
+\subsubsection{Getting form data out of
+form}\label{getting-form-data-out-of-form}}
+
+\hypertarget{in-the-app.js-file.}{%
+\paragraph{\texorpdfstring{In the \texttt{app.js}
+file.}{In the app.js file.}}\label{in-the-app.js-file.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{ express }\OperatorTok{=} \AttributeTok{require}\NormalTok{(}\StringTok{"express"}\NormalTok{)}\OperatorTok{;}
+\KeywordTok{var}\NormalTok{ app }\OperatorTok{=} \AttributeTok{express}\NormalTok{()}
+
+
+\CommentTok{// remember to npm install body-parser too!}
+\CommentTok{// bodyParser parses the body of the (POST) request into a JS object.}
+\CommentTok{// Express must EXPLICITLY know that body-parser is being used.}
+\KeywordTok{var}\NormalTok{ bodyParser }\OperatorTok{=} \AttributeTok{require}\NormalTok{(}\StringTok{"body-parser"}\NormalTok{)}\OperatorTok{;}
+
+\CommentTok{// @Steeve: test if this is still needed to work.}
+\CommentTok{// @Steeve: maybe check the body-parser docs for }
+\CommentTok{//   what urlencoded(\{extended:true\} does.}
+\CommentTok{// Basically a copypasta to retrieve the data from a form.}
+\VariableTok{app}\NormalTok{.}\AttributeTok{use}\NormalTok{(}\VariableTok{bodyParser}\NormalTok{.}\AttributeTok{urlencoded}\NormalTok{(}\OperatorTok{\{}\DataTypeTok{extended}\OperatorTok{:}\KeywordTok{true}\OperatorTok{\}}\NormalTok{))}\OperatorTok{;}
+
+\KeywordTok{var}\NormalTok{ friends  }\OperatorTok{=}\NormalTok{ [}\StringTok{"all"}\OperatorTok{,} \StringTok{"my"}\OperatorTok{,} \StringTok{"friends"}\OperatorTok{,} \StringTok{"are"}\OperatorTok{,} \StringTok{"dead"}\NormalTok{]}\OperatorTok{;}
+
+
+\CommentTok{// app.use(express.static("public"));}
+\VariableTok{app}\NormalTok{.}\AttributeTok{set}\NormalTok{(}\StringTok{"view engine"}\OperatorTok{,} \StringTok{"ejs"}\NormalTok{)}\OperatorTok{;}
+
+\VariableTok{app}\NormalTok{.}\AttributeTok{get}\NormalTok{(}\StringTok{"/"}\OperatorTok{,} \KeywordTok{function}\NormalTok{(req}\OperatorTok{,}\NormalTok{ res) }\OperatorTok{\{}
+  \VariableTok{res}\NormalTok{.}\AttributeTok{render}\NormalTok{(}\StringTok{"home"}\NormalTok{)}\OperatorTok{;}
+  
+\OperatorTok{\}}\NormalTok{)}
+
+ 
+\CommentTok{// Render an ejs template with a list of friends.}
+\VariableTok{app}\NormalTok{.}\AttributeTok{get}\NormalTok{(}\StringTok{"/friends"}\OperatorTok{,} \KeywordTok{function}\NormalTok{(req}\OperatorTok{,}\NormalTok{ res) }\OperatorTok{\{}
+  
+  \CommentTok{// REMEMBER: friends  = ["all", "my", "friends", "are", "dead"];}
+  \VariableTok{res}\NormalTok{.}\AttributeTok{render}\NormalTok{(}\StringTok{"friends"}\OperatorTok{,} \OperatorTok{\{}\DataTypeTok{friends}\OperatorTok{:}\NormalTok{friends}\OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+\OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+
+
+\CommentTok{// The post route will look for a form whose action is "/addfriend",}
+\CommentTok{//   and run res.send() when/if it finds a matching form.}
+\CommentTok{// Otherwise, an error is thrown/displayed on the webpage.}
+\CommentTok{//   Usually, it's "Cannot POST '/url' ".}
+\VariableTok{app}\NormalTok{.}\AttributeTok{post}\NormalTok{(}\StringTok{"/addfriend"}\OperatorTok{,} \KeywordTok{function}\NormalTok{(req}\OperatorTok{,}\NormalTok{ res) }\OperatorTok{\{}
+  \KeywordTok{var}\NormalTok{ newFriend }\OperatorTok{=} \VariableTok{req}\NormalTok{.}\VariableTok{body}\NormalTok{.}\AttributeTok{name}\OperatorTok{;}
+  
+  \VariableTok{friends}\NormalTok{.}\AttributeTok{push}\NormalTok{(newFriend)}\OperatorTok{;}
+  
+  \CommentTok{// takes the name of a route (the url of the particular page),}
+  \CommentTok{//  and runs the code in that route.}
+  \VariableTok{res}\NormalTok{.}\AttributeTok{redirect}\NormalTok{(}\StringTok{"/friends"}\NormalTok{)}\OperatorTok{;}
+\OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+
+\VariableTok{app}\NormalTok{.}\AttributeTok{listen}\NormalTok{(}\VariableTok{process}\NormalTok{.}\VariableTok{env}\NormalTok{.}\AttributeTok{PORT}\OperatorTok{,} \VariableTok{process}\NormalTok{.}\VariableTok{env}\NormalTok{.}\AttributeTok{IP}\OperatorTok{,} \KeywordTok{function}\NormalTok{() }\OperatorTok{\{}
+  \VariableTok{console}\NormalTok{.}\AttributeTok{log}\NormalTok{(}\StringTok{"Server has started!"}\NormalTok{)}\OperatorTok{;}
+\OperatorTok{\}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{in-the-friends.ejs-file.}{%
+\paragraph{\texorpdfstring{In the \texttt{friends.ejs}
+file.}{In the friends.ejs file.}}\label{in-the-friends.ejs-file.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{<h1>}\NormalTok{FRIENDS GO HERE}\KeywordTok{</h1>}
+
+\CommentTok{<!-- List all friends-->}
+\ErrorTok{<}\NormalTok{% friends.forEach(function(friend)\{ %>}
+  \KeywordTok{<li>}\ErrorTok{<}\NormalTok{%= friend %>}\KeywordTok{</li>}
+\ErrorTok{<}\NormalTok{% \}); %>}
+
+\CommentTok{<!-- action is the url, method is the type of request \{GET, POST,etc\}-->}
+\CommentTok{<!-- "action" in the ejs file MUST match --><!--the url (the first arg of app.post()) of the post route in the app.js file-->}
+\KeywordTok{<form}\OtherTok{ action=}\StringTok{"/addfriend"}\OtherTok{ method=}\StringTok{"POST"}\KeywordTok{>}
+  
+  \CommentTok{<!-- "name" is the value of the form, and will be looked for in the route  -->}
+  \CommentTok{<!-- name is one of the properties that will be sent back in the body of the request.-->}
+  \KeywordTok{<input}\OtherTok{ type=}\StringTok{"text"}\OtherTok{ name=}\StringTok{"name"}\OtherTok{ placeholder=}\StringTok{"name"}\KeywordTok{></input>}
+  
+  \CommentTok{<!--When the above input is submitted, the post route will look for the form -->}
+  \CommentTok{<!--whose action is "/addfriend", and run (the code in) the post route.-->}
+
+    
+  \CommentTok{<!-- (apparently submit is the default button type)-->}
+  \KeywordTok{<button>}\NormalTok{MAKE NEW FRIEND}\KeywordTok{</button>}
+\KeywordTok{</form>}
+\end{Highlighting}
+\end{Shaded}
+
+    \hypertarget{express-boilerplate-v4}{%
+\subsection{Express Boilerplate, v4}\label{express-boilerplate-v4}}
+
+Steps 1. Create Project Directory and \texttt{cd} into it. 2. Run
+\texttt{npm\ init} wizard for a bunch of setup stuff (including
+dependencies setup). * Important: this line must go before installing
+something with the \texttt{-\/-save} flag. * follow the directions pls *
+\texttt{init} should generate a package.json file.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  Run \texttt{npm\ install\ express\ -\/-save} to install express, and
+  to add express to the dependencies.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{NOTE:} A package-losck.json might appear, it is safe to
+    commit. It \textbf{SHOULD} be committed.
+  \item
+    \textbf{NOTE:} a node\_modules folder will probably be added, this
+    is OK.
+  \end{itemize}
+\item
+  Run \texttt{npm\ install\ ejs\ -\/-save} to install ejs (for the
+  embedded JavaScript files).
+\item
+  Run \texttt{npm\ install\ body-parser\ -\/-save} to install
+  body-parser (to get extract form data for our POST requests).
+\item
+  \texttt{touch} the app.js file (while inside your Project Directory).
+\item
+  Inside the app.js file, make sure it looks like this to start:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \KeywordTok{var}\NormalTok{ express }\OperatorTok{=} \AttributeTok{require}\NormalTok{(}\StringTok{"express"}\NormalTok{)}\OperatorTok{;}
+ \KeywordTok{var}\NormalTok{ app }\OperatorTok{=} \AttributeTok{express}\NormalTok{()}\OperatorTok{;}
+
+ \CommentTok{// remember to npm install body-parser too!}
+ \CommentTok{// bodyParser parses the body of the (POST) request into a JS object.}
+ \CommentTok{// Express must EXPLICITLY know that body-parser is being used.}
+ \KeywordTok{var}\NormalTok{ bodyParser }\OperatorTok{=} \AttributeTok{require}\NormalTok{(}\StringTok{"body-parser"}\NormalTok{)}\OperatorTok{;} 
+
+ \CommentTok{// @Steeve: test if this is still needed to work.}
+ \CommentTok{// @Steeve: maybe check the body-parser docs for}
+ \CommentTok{//   what urlencoded(\{extended:true\} does.}
+ \CommentTok{// Basically a copypasta to retrieve the data from a form.}
+ \VariableTok{app}\NormalTok{.}\AttributeTok{use}\NormalTok{(}\VariableTok{bodyParser}\NormalTok{.}\AttributeTok{urlencoded}\NormalTok{(}\OperatorTok{\{}\DataTypeTok{extended}\OperatorTok{:}\KeywordTok{true}\OperatorTok{\}}\NormalTok{))}\OperatorTok{;}
+
+ \CommentTok{// tell express to serve the "ProjectName/public/" folder.}
+ \VariableTok{app}\NormalTok{.}\AttributeTok{use}\NormalTok{(}\VariableTok{express}\NormalTok{.}\AttributeTok{static}\NormalTok{(}\StringTok{"public"}\NormalTok{))}\OperatorTok{;}
+
+ \CommentTok{// explicitly tell express to be able to use ejs files}
+ \CommentTok{// allows us to write res.render("filename.ejs");}
+ \CommentTok{//  as just res.render("filename");}
+ \VariableTok{app}\NormalTok{.}\AttributeTok{set}\NormalTok{(}\StringTok{"view engine"}\OperatorTok{,} \StringTok{"ejs"}\NormalTok{)}\OperatorTok{;}
+
+ \CommentTok{// render the home.ejs file. Don't need .ejs extension IF app.set("view engine", "ejs") is used.}
+ \VariableTok{app}\NormalTok{.}\AttributeTok{get}\NormalTok{(}\StringTok{"/"}\OperatorTok{,} \KeywordTok{function}\NormalTok{(req}\OperatorTok{,}\NormalTok{ res)}\OperatorTok{\{}
+ \VariableTok{res}\NormalTok{.}\AttributeTok{render}\NormalTok{(}\StringTok{"home"}\NormalTok{)}\OperatorTok{;}
+ \OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+
+ \CommentTok{// The post route will look for a form whose action is "/doSomething",}
+ \CommentTok{//   and run res.send() when/if it finds a matching form.}
+ \CommentTok{// Otherwise, an error is thrown/displayed on the webpage.}
+ \CommentTok{//   Usually, it's "Cannot POST '/url' ".}
+ \VariableTok{app}\NormalTok{.}\AttributeTok{post}\NormalTok{(}\StringTok{"/doSomething"}\OperatorTok{,} \KeywordTok{function}\NormalTok{(req}\OperatorTok{,}\NormalTok{ res) }\OperatorTok{\{}
+   \CommentTok{// Example of accessing a field from the request body.}
+   \CommentTok{// requires body-parser}
+   \KeywordTok{var}\NormalTok{ task }\OperatorTok{=} \VariableTok{req}\NormalTok{.}\VariableTok{body}\NormalTok{.}\AttributeTok{task}\OperatorTok{;}
+
+   \CommentTok{// takes the name of a route (the url of the particular page),}
+   \CommentTok{//  and runs the code in that route.}
+   \CommentTok{// So redirect the user to homepage.}
+   \VariableTok{res}\NormalTok{.}\AttributeTok{redirect}\NormalTok{(}\StringTok{"/friends"}\NormalTok{)}\OperatorTok{;}
+ \OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+
+ \CommentTok{//OPTIONAL: You may want to add a splat route matcher for an error page}
+ \CommentTok{// MUST be the last route in the file though.}
+ \VariableTok{app}\NormalTok{.}\AttributeTok{get}\NormalTok{(}\StringTok{"*"}\OperatorTok{,} \KeywordTok{function}\NormalTok{(req}\OperatorTok{,}\NormalTok{ res)}\OperatorTok{\{}
+ \VariableTok{res}\NormalTok{.}\AttributeTok{send}\NormalTok{(}\StringTok{"ERROR 404: PAGE NOT FOUND!"}\NormalTok{)}\OperatorTok{;}
+ \OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+
+ \CommentTok{// Make sure to set your app to listen, right at the very end of the app.js file.}
+ \CommentTok{// tHiS iS wHat RuNs ThE sErVeR.}
+ \CommentTok{// Also, }\AlertTok{NOTE}\CommentTok{: things starting w/ "process.env.*" are only used on Cloud9.}
+ \CommentTok{//   When using an actual server,make sure to put its real port and IP address.}
+ \VariableTok{app}\NormalTok{.}\AttributeTok{listen}\NormalTok{(}\VariableTok{process}\NormalTok{.}\VariableTok{env}\NormalTok{.}\AttributeTok{PORT}\OperatorTok{,} \VariableTok{process}\NormalTok{.}\VariableTok{env}\NormalTok{.}\AttributeTok{IP}\OperatorTok{,} \KeywordTok{function}\NormalTok{()}\OperatorTok{\{}
+ \VariableTok{console}\NormalTok{.}\AttributeTok{log}\NormalTok{(}\StringTok{"Now serving your app!"}\NormalTok{)}\OperatorTok{;}
+ \OperatorTok{\}}\NormalTok{)}\OperatorTok{;}
+\end{Highlighting}
+\end{Shaded}
+
+  \textbf{NOTE:} the \texttt{.} (dots) represent where the majority of
+  user written code (routes, etc) will go.
+\item
+  Create the ``ProjectDirectory/public/'' folder (for assets like
+  stylesheets and scripts) and the ``ProjectDirectory/views/'' folder to
+  hold the ejs templates that will be served.
+\item
+  \texttt{touch} the public/app.css or (``public/stylesheets/app.css''
+  if you're responsible) file and write your vanilla CSS in there.
+\item
+  Create the ``ProjectDirectory/views/partials'' directory (sometimes
+  layouts is used instead of partials) to the boilerplate elements.
+\item
+  Create your ``ProjectDirectory/views/partials/header.ejs'' and
+  ``ProjectDirectory/views/partials/footer.ejs'' files for the top and
+  bottom halves of the HTML bolierplate, respectively.
+\item
+  Inside all your served EJS files (served ejs files \textbf{must} be
+  inside ``ProjectDirectory/views/'' folder), make sure it looks like
+  this to start:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+ \CommentTok{// full filepath: "ProjecDirectory/views/partials/header.ejs"}
+ \OperatorTok{<%}\NormalTok{ include partials/header }\OperatorTok{%>}
+ \CommentTok{// *Actual HTML content*}
+ \OperatorTok{<%}\NormalTok{ include partials/footer }\OperatorTok{%>}
+ 
+\end{Highlighting}
+\end{Shaded}
+
+Usually, views/partials/header.ejs template looks something like:
+
+```html \textless{}!DOCTYPE html\textgreater{}
+
+``` * (The top half of the HTML boilerplate.)
+
+Usually, view/partials/footer.ejs template looks something like:
+```javascript
+
+\begin{verbatim}
+<p>Copyright 2018</p>
+  </body>
+</html>
+
+```
+ * (The bottom half of the HTML boilerplate.)
+\end{verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

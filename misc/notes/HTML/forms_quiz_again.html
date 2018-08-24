@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Registration</title>
+  </head>
+  <body>
+    <h1>Register</h1>
+
+    <form class="" action="" method="">
+      <label for="firstname">First Name:</label>
+      <input type="text" name="first" value="" id="firstname" placeholder="John" required>
+      <!-- <br> -->
+
+      <label for="lastname">Last Name:</label>
+      <input type="text" name="last" value="" id="lastname" placeholder="Smith" required>
+      <br>
+
+      <label for="male">Male</label>
+      <input type="radio" name="gender" value="Male" id="male">
+
+      <label for="female">Female</label>
+      <input type="radio" name="gender" value="Female" id="female">
+
+      <label for="other">Other</label>
+      <input type="radio" name="gender" value="Other" id="other">
+      <br>
+      <label for=""></label>
+
+      <label for="email">Email:</label>
+      <input type="email" name="" value="" id=email>
+
+      <label for="password">Password:</label>
+      <input pattern=".{5,10}" required title="5 to 10 characters" type="password" name="" value="" id="password">
+      <br>
+
+      <label for="bday">Birthday:</label>
+      <select class="" name="" id="month">
+        <option value="jan">January</option>
+        <option value="feb">February</option>
+        <option value="mar">March</option>
+      </select>
+
+      <select class="" name="" id="day">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+
+      <select class="" name="" id="year">
+        <option value="2001">2001</option>
+        <option value="2002">2002</option>
+        <option value="2003">2003</option>
+      </select>
+      <br>
+
+      <label for="agree">I agree to the terms and conditions</label>
+      <input type="checkbox" name="" value="agreement" required>
+      <br>
+
+      <input type="submit" name="Submit" value="Submit">
+      <button type="submit" name="button">Submit</button>
+    </form>
+  </body>
+</html>

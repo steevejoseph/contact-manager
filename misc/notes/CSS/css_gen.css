@@ -1,0 +1,66 @@
+/* General rule: */
+selector {
+  property:value;
+  anotherProperty: value;
+}
+
+
+
+/* 3 types of selectors:
+
+  Element
+  ID
+  Class */
+
+/* Element */
+h1 {
+  color:blue;
+}
+
+/* ID */
+#thirdli {
+  color: red;
+}
+
+/* Class */
+.completed {
+  text-decoration: line-through;
+}
+
+/* Star */
+/* (selects everything on page) */
+* {
+  color:blue;
+}
+
+/* Descendent Selector */
+/* x y */
+/* Every "y" in "x" */
+/* So, every anchor tag in a list item.  */
+li a {
+  color: blue;
+}
+
+/* Adjacent Selector */
+/* elements next to selected elements */
+/*  * Same level (no indent), siblings */
+/*Select all uls Adjacent to h4s*/
+h4 + ul {
+  border: 4px solid red;
+}
+
+/* Attribute Selector */
+/* All a tags that have an href to Google  */
+
+a[href="https://google.com"] {
+  background: blue
+}
+/* NOTE: for inputs, Attribute selectors are basically nec. */
+/* Bcuz all file pickers, checkboxes are input, need to specify. */
+
+
+/* nth of type */
+/* select every 3rd li of every group */
+li:nth-of-type(3) {
+
+}
