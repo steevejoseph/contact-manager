@@ -2,7 +2,7 @@ var express = require("express"),
     app     = express();
 
 
-app.get("*", function(req, res){
+app.get("/", function(req, res){
 	res.render('splash.ejs');
 });
 
