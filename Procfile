@@ -1,1 +1,1 @@
-web: node contact-manager/index.js
+web: node index.js
