@@ -1,13 +1,13 @@
 # REQUIREMENTS
 ## Development (technical requirements from Leinecker)
-  1. There must be a remote database
+  1. ~~There must be a remote database~~
   2. JSON must be used to communicate between client and server
-  3. Tech stack must be used
+  3. ~~Tech stack must be used~~
   4. Webpage must act as client
   5. Webpage must be AJAX enabled
   6. UML and/or ER diagrams  must be used.
   7. Contact Manager must have "professional" and clean interface.
-  8. Source code and support files must be in github.
+  8. ~~Source code and support files must be in github.~~
   9. There must be an API made for the contact Manager.
 
 ## Presentation (more requirements from Leinecker)
