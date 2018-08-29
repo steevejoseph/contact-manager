@@ -10,6 +10,8 @@ var	Contact  = require("./models/contact.js"),
 // Connect to URL set in env variables.
 mongoose.connect('mongodb://team7:ABC123@ds133152.mlab.com:33152/contact-manager', {useNewUrlParser: true});
 
+app.use(express.static(__dirname + '/public'));
+
 // render root route (splash/landing page).
 app.get("/", function(req, res){
 	res.render('splash.ejs');
