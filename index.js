@@ -17,7 +17,6 @@ app.get("/", function(req, res){
 	res.render('splash.ejs');
 });
 
-//change back to orig 
 app.listen(process.env.PORT, process.env.IP, function(){
 	console.log('Server running!');
 });
