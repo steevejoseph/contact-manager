@@ -1,4 +1,4 @@
-Quick recap of 8/28 after class standup:
+Quick recap of 8/28 after-class standup:
 
 # Deployment
  * We are now deployed on heroku and mlab [here](https://team7-contact-manager.herokuapp.com/)
@@ -18,7 +18,7 @@ Quick recap of 8/28 after class standup:
     * These 8 cover most of the 5 UMBATs specified by Leinecker.
 
 # Roadmap
-  * ~~Feature Friday?~~ Sunday Fun(ctional day)
+  * ~~Feature Friday?~~ Sunday Fun(ctional) day
     * By the end of this week/weekend, I'd like to have something functional for the contact Manager. (See 5 UMBATs)
 
     * Next week, I'd like to see if we can get UI updates and authentication.
