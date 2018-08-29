@@ -18,6 +18,6 @@ app.get("/", function(req, res){
 });
 
 //change back to orig 
-app.listen(2000, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
 	console.log('Server running!');
 });
