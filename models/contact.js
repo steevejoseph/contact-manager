@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
-var contactSchema = new Schema({
+
+var contactSchema = new mongoose.Schema({
 
     firstName: String,
     lastName: {type:String, default: 'Last Name'},
 
-    mobilePhone:String
+    mobilePhone:String,
     homePhone:String,
     company:String,
 
