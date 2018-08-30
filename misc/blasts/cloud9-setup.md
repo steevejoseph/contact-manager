@@ -58,7 +58,7 @@ You've successfully created a Cloud9 account!
 <p>Running  MongoDB</p>
 <blockquote>
 <p>mkdir data</p>
-<p>echo ‘mongod --bind_ip=$IP --dbpath=data --nojournal --rest “$@”’ &gt; mongod</p>
+<p>echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"' &gt; mongod</p>
 <p>chmod a+x mongod</p>
 </blockquote>
 <p>Start Mongod</p>
