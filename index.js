@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/public'));
 app.get("/", function(req, res){
 	res.render('splash.ejs');
 });
-
-app.listen(process.env.PORT, process.env.IP, function(){
+//process.env.PORT
+app.listen(2000, process.env.IP, function(){
 	console.log('Server running!');
 });
