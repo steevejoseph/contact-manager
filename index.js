@@ -1,4 +1,3 @@
-// Include dependencies
 var express  = require("express"),
 	mongoose = require("mongoose"),
 	app      = express();
