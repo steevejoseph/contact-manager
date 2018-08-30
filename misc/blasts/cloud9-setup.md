@@ -56,9 +56,12 @@ You've successfully created a Cloud9 account!
 <p>sudo apt-get install -y mongodb-org</p>
 </blockquote>
 <p>Running  MongoDB</p>
+<ul>
+  <li> when you paste the echo command into the terminal, the quotation style around mongod and $@ changes, which prevents the command from running properly. So you need to retype the quotes after pasting the command.</li>
+</ul>
 <blockquote>
 <p>mkdir data</p>
-<p>echo ‘mongod --bind_ip=$IP --dbpath=data --nojournal --rest “$@”’ &gt; mongod</p>
+<p>echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@"' &gt; mongod</p>
 <p>chmod a+x mongod</p>
 </blockquote>
 <p>Start Mongod</p>
