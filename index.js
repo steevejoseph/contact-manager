@@ -13,8 +13,7 @@ var	Contact  = require("./models/contact.js"),
 
 // Connect to URL set in env variables.
 // mongoose.connect('mongodb://team7:ABC123@ds133152.mlab.com:33152/contact-manager', {useNewUrlParser: true});
-
-mongoose.connect("mongodb://localhost/conman", {useNewUrlParser:true});
+mongoose.connect(process.env.DBURL, {useNewUrlParser:true});
 
 app.set("view engine", "ejs");
 
@@ -55,12 +54,12 @@ app.get("/", function(req, res){
 });
 
 
-// Authenticated signup logic.
 app.get("/signup", function(req, res){
 	res.render("signup.ejs");
 	
 });
 
+// Authenticated signup logic.
 app.post("/signup", function(req, res){
 
 	User.register(new User({username:req.body.username}), req.body.password, function(err, user){
@@ -103,8 +102,6 @@ app.post("/login", function(req, res){
     });
   })(req, res);
 });
-
-
 
 
 app.get("/home", isLoggedIn,function(req, res) {
