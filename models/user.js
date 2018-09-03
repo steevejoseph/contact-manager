@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     passportLocalMongoose = require("passport-local-mongoose");
 
 
-var userSchema = new mongoose.Schema({
+var UserSchema = new mongoose.Schema({
     firstName: String,
     lastName: {type:String, default: 'Last Name'},
 
@@ -20,6 +20,6 @@ var userSchema = new mongoose.Schema({
 // This goes ahead and adds important method that come with the passport
 // package, that we need to use inorder to have user Authentication
 // such as serialize() and deserialize()
-userSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', UserSchema);
