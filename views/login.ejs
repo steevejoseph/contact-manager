@@ -1,5 +1,56 @@
-<form action="/login" method="POST">
-    <input type="text"     name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit">
-</form>
+<!DOCTYPE html>
+<html>
+
+  <style>
+  </style>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><app name></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+  </head>
+
+  <body>
+    <div class="section">
+      <div class="container">
+        <div class="column is-4 is-offset-4">
+          <h1 class="title is-centered">Welcome to Whatchamacallit</h1>           
+          
+          <div class="card">
+            <div class="card-content">
+              <p class="title is-centered">
+                <strong>Have an account?</strong>
+              </p>
+              <h3 class="subtitle">Login to continue</h3>
+         
+	      <form class="control" action="/login" method="POST">
+                <div class="field">
+	          <input class="input" type="text" name="username" placeholder="Username" required>
+                </div>
+                <div class="field">
+	          <input class="input" type="password" name="password" placeholder="Password" required>
+                </div>
+	        <input class="button is-centered" type="submit" value="Login">
+              </form>
+         
+              <p><h6 class="subtitle is-6 has-text-centered">or</h6></p>
+              <footer class="card-footer">
+                <p class="card-footer-item register">
+                  <form class="control" action="/signup">
+                    <input type="submit" class="button is-medium is-white" value="Create an Account">
+                  </form>
+                </p>
+              </footer> 
+            <div>
+          </div>
+
+        </div>
+      </div>    
+    </div>      
+  </body>
+ 
+
+
+</html>
