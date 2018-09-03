@@ -1,16 +1,17 @@
+<form action="/searchcontact" method="POST">
+    <input type="text" name="query" placeholder="Enter Contact's Info">
+    <button type="submit">Search Contacts</button>
+</form>
 
-<form action="search" method="POST">
-<input type="submit" id="query" value="search">
 <div>
     <section id="contactList">
-        <%for contacts.forEach(function(contacts) { %>
+        <% if(typeof contacts != 'undefined') { %>
+        <% for(var i = 0; i < contacts.length; i++) { %>
             <p><% contacts[i].firstName%></p>
             <p><% contacts[i].lastName%></p>
             <p style="margin-left: 40px"><% contacts[i].phone%></p>
             <p style="margin-left: 40px"><% contacts[i].email%></p>
-        <% }); %>
+        <% } %>
+        <% } %>
     </section>
-    
 </div>
-
-</form>

@@ -14,4 +14,14 @@ var contactSchema = new mongoose.Schema({
     birthday:Date,
 });
 
+// create search index
+contactSchema.index({
+    'firstName':'text',
+    'lastName':'text',
+    'mobilePhone':'text',
+    'homePhone':'text',
+    'company':'text',
+    'email':'text'
+});
+
 module.exports = mongoose.model('Contact', contactSchema);
