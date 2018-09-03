@@ -1,5 +1,5 @@
 <form action="/searchcontact" method="POST">
-    <input type="text" name="query" placeholder="Enter Contact's Info">
+    <input type="text" id="query" name="query" placeholder="Enter Contact's Info">
     <button type="submit">Search Contacts</button>
 </form>
 
@@ -7,7 +7,12 @@
     <section id="contactList">
         <% if(typeof contacts != 'undefined') { %>
         <% for(var i = 0; i < contacts.length; i++) { %>
-            <h><%= contacts[i].firstName %> <%= contacts[i].lastName %></h>
+            <p><% contacts[i].firstName%></p>
+            <p><% contacts[i].lastName%></p>
+            <p style="margin-left: 40px"><% contacts[i].mobilePhone%></p>
+            <p style="margin-left: 40px"><% contacts[i].homePhone%></p>
+            <p style="margin-left: 40px"><% contacts[i].email%></p>
+            <p style="margin-left: 40px"><% contacts[i].company%></p>
         <% } %>
         <% } %>
     </section>
