@@ -31,6 +31,9 @@ app.use(require("express-session")({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// tell express to use body-parser so we can read POSTs
+app.use(express.bodyParser());
+
 // Two more lines before we can start working on the routes
 // Responsible for encoding data and putting it back into the session
 passport.serializeUser(User.serializeUser());
@@ -40,6 +43,15 @@ passport.deserializeUser(User.deserializeUser());
 app.use(express.static(__dirname + '/public'));
 
 //delid dis
+var banana = new Contact({
+    firstName:"banana",
+    lastName:"last",
+    email:"banan@gmail.com"
+});
+banana.save(function(err, newContact) {
+    if(err) console.log(err);
+    else console.log(newContact);
+});
 app.get("/", function(req, res) {
 	res.render('search.ejs');
 });
@@ -49,13 +61,18 @@ app.get("/searchcontact", function(req, res) {
 	res.render('search.ejs');
 });
 app.post("/searchcontact", function(req, res) {
-    var query = res.body.query;
-    Contact.find({$text:{$search:query}}, function(err, people) {
+    var query = req.body.query;
+    Contact.find({$text:{$search:query}}, function(err, contacts) {
         if(err) {
             console.log(err);
             res.render('search.ejs');
         }
-        else res.render('search.ejs', {people:people});
+        else {
+            for(var i = 0; i < contacts.length; i++) {
+                console.log(contacts[i]);
+            }
+            res.render('search.ejs', {contacts:contacts});
+        }
     });
 });
 

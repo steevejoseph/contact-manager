@@ -7,10 +7,7 @@
     <section id="contactList">
         <% if(typeof contacts != 'undefined') { %>
         <% for(var i = 0; i < contacts.length; i++) { %>
-            <p><% contacts[i].firstName%></p>
-            <p><% contacts[i].lastName%></p>
-            <p style="margin-left: 40px"><% contacts[i].phone%></p>
-            <p style="margin-left: 40px"><% contacts[i].email%></p>
+            <h><%= contacts[i].firstName %> <%= contacts[i].lastName %></h>
         <% } %>
         <% } %>
     </section>
