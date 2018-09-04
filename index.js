@@ -12,9 +12,7 @@ var	Contact  = require("./models/contact.js"),
 	User     = require("./models/user.js");
 
 // Connect to URL set in env variables.
-//mongoose.connect('mongodb://team7:ABC123@ds133152.mlab.com:33152/contact-manager', {useNewUrlParser: true});
-process.env.DBURL = 'mongodb://localhost/test-db';
-
+// mongoose.connect('mongodb://team7:ABC123@ds133152.mlab.com:33152/contact-manager', {useNewUrlParser: true});
 mongoose.connect(process.env.DBURL, {useNewUrlParser:true});
 
 app.set("view engine", "ejs");
@@ -71,7 +69,7 @@ app.post("/signup", function(req, res){
 		}
 		
 		passport.authenticate("local")(req, res, function(){
-			res.render("login");
+			res.render("login.ejs");
 		});
 	});
 });
@@ -121,7 +119,7 @@ function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
 	}
-	res.redirect("/:id/login");
+	res.redirect("/login");
 };
 
 //logout route!
@@ -130,10 +128,7 @@ app.get("/:id/logout", function(req, res){
 	res.redirect("/");
 });
 
-app.get("*", function(req, res) {
-    res.send("404 Page Not Found");
-})
-
 app.listen(process.env.PORT, process.env.IP, function(){
 	console.log('Server running!');
+	
 });
