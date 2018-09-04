@@ -95,17 +95,24 @@ app.post("/login", function(req, res){
       	console.log(err);
     }
     
-    // else: take the info from login form, load it into page.
-    user = req.body;
-    return res.render('home.ejs', {user:user});
+    res.redirect('/' + user._id);
     
     });
   })(req, res);
 });
 
 
-app.get("/home", isLoggedIn,function(req, res) {
-    res.render("home.ejs");
+// "homepage", will be transferred to "dashboard".
+app.get("/:id", isLoggedIn,function(req, res) {
+    
+    User.findById(req.params.id, function(err, user){
+    	if(err){
+    		console.log(err);
+    	} 
+    	else{
+    		res.render("dashboard.ejs", {user:user});
+    	}
+    });
 });
 
 function isLoggedIn(req, res, next){
