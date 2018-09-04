@@ -123,7 +123,7 @@ function isLoggedIn(req, res, next){
 };
 
 //logout route!
-app.get("/logout", function(req, res){
+app.get("/:id/logout", function(req, res){
 	req.logout();
 	res.redirect("/");
 });
