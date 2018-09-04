@@ -2,6 +2,50 @@
 <html>
 
   <style>
+    #loginButton {
+      display: block;
+      margin: 0px auto;
+      margin-bottom: 20px;
+    }
+   
+    #createAcctBtn {
+      display: block;
+      margin: 0px auto;
+      margin-bottom: 5px;
+     }
+   
+    h6 {
+      overflow: hidden;
+      text-align: center;
+      margin-bottom: 5px;
+      
+    }
+    
+    h6:before,
+    h6:after {
+      background-color:#000;
+      content: "";
+      display: inline-block;
+      height: 1px;
+      position: relative;
+      vertical-align: middle;
+      width: 50%;
+    }
+    
+    h6:before {
+      right: 0.5em;
+      margin-left: -50%;
+    }
+    
+    h6:after {
+      left: 0.5em;
+      margin-right: -50%;
+    }
+  
+
+    .subtitle {
+       align-items: center;
+     }
   </style>
 
   <head>
@@ -13,11 +57,15 @@
   </head>
 
   <body>
-    <div class="section">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title has-text-centered">Welcome to Whatchamacallit</h1>
+        </div>
+      </div>
+    </section>
       <div class="container">
-        <div class="column is-4 is-offset-4">
-          <h1 class="title is-centered">Welcome to Whatchamacallit</h1>           
-          
+        <div class="column is-4 is-offset-4">          
           <div class="card">
             <div class="card-content">
               <p class="title is-centered">
@@ -27,30 +75,27 @@
          
 	      <form class="control" action="/login" method="POST">
                 <div class="field">
-	          <input class="input" type="text" name="username" placeholder="Username" required>
+                  <input class="input" type="text" name="username" placeholder="Username" required>
                 </div>
                 <div class="field">
 	          <input class="input" type="password" name="password" placeholder="Password" required>
                 </div>
-	        <input class="button is-centered" type="submit" value="Login">
+	        <input class="button is-centered" type="submit" id="loginButton" value="Login">
               </form>
          
               <p><h6 class="subtitle is-6 has-text-centered">or</h6></p>
-              <footer class="card-footer">
-                <p class="card-footer-item register">
+              <!--<footer class="card-footer has-text-centered">-->
+               <!--<p class="card-footer-item">-->
                   <form class="control" action="/signup">
-                    <input type="submit" class="button is-medium is-white" value="Create an Account">
+                    <input type="submit" class="button is-centered is-medium is-white" id="createAcctBtn" value="Create an Account">
                   </form>
-                </p>
-              </footer> 
+                <!--</p>-->
+              <!---</footer> --->
             <div>
           </div>
-
         </div>
       </div>    
-    </div>      
+    <!--</div>-->      
   </body>
- 
-
 
 </html>
