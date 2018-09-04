@@ -14,9 +14,9 @@ app.use(express.static(__dirname + '/public'));
 
 // render root route (splash/landing page).
 app.get("/", function(req, res){
-	res.render('dashboard.ejs');
+	res.render('splash.ejs');
 });
-//process.env.PORT
-app.listen(2000, process.env.IP, function(){
+
+app.listen(process.env.PORT, process.env.IP, function(){
 	console.log('Server running!');
 });
