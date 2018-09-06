@@ -123,12 +123,13 @@ function isLoggedIn(req, res, next){
 };
 
 // render search route (splash/landing page).
-app.get("/searchcontact", function(req, res) {
+app.get("/:id/searchcontact", function(req, res) {
 	res.render('search.ejs');
 });
-app.post("/searchcontact", function(req, res) {
+app.post("/:id/searchcontact", function(req, res) {
     var query = req.body.query;
-    Contact.find({$text:{$search:query}}, function(err, contacts) {
+    var userID = req.params.id;
+    Contact.find({name:query, user:userID}, function(err, contacts) {
         if(err) {
             console.log(err);
             res.render('search.ejs');
