@@ -203,11 +203,6 @@ app.get("/:id/logout", function(req, res){
 	res.redirect("/");
 });
 
-app.listen(process.env.PORT, process.env.IP, function(){
-	console.log('Server running!');
-	
-});
-
 // api route for new user.
 app.post("/api/users/new", function(req, res){
 	
@@ -231,3 +226,9 @@ app.post("/api/users/new", function(req, res){
 		}
 	});
 });
+
+app.listen(process.env.PORT, process.env.IP, function(){
+	console.log('Server running!');
+	
+});
+
