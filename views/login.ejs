@@ -41,11 +41,12 @@
       left: 0.5em;
       margin-right: -50%;
     }
-  
 
-    .subtitle {
-       align-items: center;
+    #theModal {
+	$modal-card-head-padding: 30px;
+
      }
+  
   </style>
 
   <head>
@@ -54,6 +55,7 @@
     <title>app name></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
 
   <body>
@@ -84,18 +86,92 @@
               </form>
          
               <p><h6 class="subtitle is-6 has-text-centered">or</h6></p>
+                <button class="button is-centered is-medium is-white" id="createAcctBtn">Create an Account</button>
               <!--<footer class="card-footer has-text-centered">-->
                <!--<p class="card-footer-item">-->
-                  <form class="control" action="/signup">
+                 <!-- <form class="control" action="/signup">
                     <input type="submit" class="button is-centered is-medium is-white" id="createAcctBtn" value="Create an Account">
                   </form>
+                -->
                 <!--</p>-->
-              <!---</footer> --->
+              <!---</footer> -->
             <div>
           </div>
         </div>
       </div>    
-    <!--</div>-->      
-  </body>
+ 
+      <div class="modal" id="theModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head">
+            <p class="modal-card-title">Create an Account</p>
+            <button class="delete" id="closeBtn" aria-label="close"></button>
+          </header>
+	  <section class="modal-card-body">
+             
+            <form class="control" action="/signup" method="POST">
+                <div class="field">
+                  <input class="input" type="text" name="firstName" placeholder="First Name" required>
+                </div>
+                <div class="field">
+	          <input class="input" type="text" name="last Name" placeholder="Last Name" required>
+                </div>
+                <div class="field">
+                  <input class="input" type="text" name="phone" placeholder="Phone Number">
+                </div>
+                <div class="field">
+                  <input class="input" type="email" name="Email" placeholder="Email">
+                </div>
+                <div class="field">
+                  <input class="input" type="text" name="username" placeholder="Username" required>
+                </div>
+                <div class="field">
+                  <input class="input" type="text" name="password" placeholder="Password" required>
+                </div>
+                
+                
+	          <input class="button is-centered is-success" type="submit" id="signupBtn" value="Sign Up">
+                 
+                
+              </form>
+         
+    
+              
+          </section>
+
+          <footer class="modal-card-foot">
+            <button class="button" id="cancelBtn">Cancel</button>
+          </footer>
+        </div>
+      </div>
+     
+    <script type="text/javascript">
+      var modal = document.getElementById('theModal');
+      
+      var modalButton = document.getElementById('createAcctBtn');
+
+      var cancelSignup = document.getElementById('cancelBtn');
+
+      var closeBtn = document.getElementById('closeBtn');
+
+      modalButton.addEventListener("click", function(){
+        theModal.style.display = "block";
+      });
+     
+      cancelSignup.addEventListener("click", function(){
+	 modal.style.display = "none";
+      });
+
+      closeBtn.addEventListener("click", function(){
+	modal.style.display = "none";
+      });
+
+      
+         
+      
+    </script>
+
+
+ </body>
 
 </html>
