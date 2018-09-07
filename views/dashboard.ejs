@@ -58,7 +58,10 @@
             <!-- Search bar and add button -->
             <div class="field is-grouped">
                 <div class="control is-expanded">
-                    <input class="input search" type="text" placeholder="Search">
+                    <form action="/<%= user._id %>/searchcontact" method="POST">
+                        <input class="input search" type="text" placeholder="Search" name="query">
+                    </form>
+                    
                 </div>
                 <div class="control">
                     <button class="button is-light addButton" onclick="openContactModal(false)">
@@ -303,9 +306,15 @@
 
         for (var i = 0; i < contactList.length; i++) {
             window.list[i] = {
+                firstName: contactList[i].firstName,
+                lastName: contactList[i].lastName,
                 fullName: contactList[i].fullName,
+                company: contactList[i].company,
+                mobilePhone: contactList[i].mobilePhone,
+                homePhone: contactList[i].homePhone,
                 randomText: faker.lorem.lines(),
-                email: contactList[i].fullName
+                email: contactList[i].email,
+                user: contactList[i].user
             };
         }
 
@@ -320,8 +329,8 @@
                     $('.card').removeClass('active');
                     $('#contact-card-' + index).addClass('active');
                     $('.contact .full-name').text(contact.fullName);
-                    $('.contact .first-name').text(contact.fullName);
-                    $('.contact .last-name').text(contact.fullName);
+                    $('.contact .first-name').text(contact.firstName);
+                    $('.contact .last-name').text(contact.lastName);
                     $('.contact .company').text(contact.fullName);
                     $('.contact .email').text(contact.email);
                 },
