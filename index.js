@@ -172,7 +172,9 @@ app.delete("/:id/deletecontact", function(req, res) {
                 if(err1) console.log(err1);
                 else res.redirect("/" + userID);
             });
-
+        }
+    });
+});
 // render search route (splash/landing page).
 // app.get("/:id/searchcontact", function(req, res) {
 // 	res.render('search.ejs');
