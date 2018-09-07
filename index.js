@@ -12,8 +12,8 @@ var	Contact  = require("./models/contact.js"),
 	User     = require("./models/user.js");
 
 // Connect to URL set in env variables.
-// mongoose.connect('mongodb://team7:ABC123@ds133152.mlab.com:33152/contact-manager', {useNewUrlParser: true});
-mongoose.connect(process.env.DBURL, {useNewUrlParser:true});
+mongoose.connect('mongodb://team7:ABC123@ds133152.mlab.com:33152/contact-manager', {useNewUrlParser: true});
+// mongoose.connect(process.env.DBURL, {useNewUrlParser:true});
 
 app.set("view engine", "ejs");
 
@@ -122,6 +122,8 @@ function isLoggedIn(req, res, next){
 	res.redirect("/login");
 };
 
+
+
 //logout route!
 app.get("/:id/logout", function(req, res){
 	req.logout();
@@ -131,4 +133,28 @@ app.get("/:id/logout", function(req, res){
 app.listen(process.env.PORT, process.env.IP, function(){
 	console.log('Server running!');
 	
+});
+
+// api route for new user.
+app.post("/api/users/new", function(req, res){
+	
+	console.log(req.body);
+	User.create({
+			firstName: req.body.firstName,
+	    	lastName: req.body.lastName,
+	
+	    	// email validation will be done on frontend.
+	    	email: req.body.email,
+	    	username: req.body.username,
+	
+	    	// hashed password
+	    	password: req.body.password,
+	    	birthday: req.body.date
+	},	function(err, new_user){
+		if(err) console.log(err);
+		else{
+			console.log(new_user);
+			res.send(JSON.stringify(new_user));
+		}
+	});
 });
