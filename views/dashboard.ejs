@@ -60,6 +60,7 @@
                 <div class="control is-expanded">
                     <form action="/<%= user._id %>/searchcontact" method="POST">
                         <input class="input search" type="text" placeholder="Search" name="query">
+                        <input type="submit" style="display:none">
                     </form>
                     
                 </div>
@@ -90,10 +91,10 @@
         <!-- Selected contact column -->
         <div class="column is-6 contact" id="contact-pane">
             <div class="no-contact-view is-centered has-text-centered is-lig" style="width:100%;">
-                <i class="fa fa-user"></i>
-                <div class="subtitle">
-                    You don't have any contacts, yet.
-                </div>
+                <!--<i class="fa fa-user"></i>-->
+                <!--<div class="subtitle">-->
+                <!--    You don't have any contacts, yet.-->
+                <!--</div>-->
             </div>
             <div class="contact-view is-hidden">
                 <div class="full-name subtitle is-1">Abe Sanchez</div>
@@ -131,7 +132,7 @@
 
                     <div class="field is-grouped">
                         <div class="control">
-                            <button class="button is-light" onclick="openContactModal(true)">Edit</button>
+                            <!--<button class="button is-light" onclick="openContactModal(true)">Edit</button>-->
                         </div>
                         <div class="control">
                             <button class="button is-danger">Delete</button>

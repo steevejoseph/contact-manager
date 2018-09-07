@@ -186,16 +186,29 @@ app.delete("/:id/deletecontact", function(req, res) {
 app.post("/:id/searchcontact", function(req, res) {
     var query = req.body.query;
     var userID = req.params.id;
-    Contact.find({name:query, user:userID}, function(err, contacts) {
+    var user;
+    
+    User.findById(userID, function(err, found_user){
+    	if(err){console.log(err);}
+    	else{
+    		user = found_user;
+    	}
+    });
+    
+    Contact.find({user:userID, firstName:query}, function(err, contactList) {
         if(err) {
             console.log(err);
-            res.render('search.ejs');
+            res.redirect("/" + userID);
         }
         else {
-            for(var i = 0; i < contacts.length; i++) {
-                console.log(contacts[i]);
+        	console.log("LIST MATCHES!");
+            for(var i = 0; i < contactList.length; i++) {
+                console.log(contactList[i]);
             }
-            res.render('search.ejs', {contacts:contacts});
+                    	console.log("END LIST MATCHES!");
+                    	
+    		contactList = JSON.stringify(contactList);
+            res.render('dashboard.ejs', {contactList:contactList, user:user});
         }
     });
 });
