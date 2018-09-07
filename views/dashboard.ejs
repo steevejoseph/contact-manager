@@ -39,7 +39,7 @@
                                 Settings
                             </a>
                             <hr class="navbar-divider">
-                            <a href="/<%= user._id%>/logout" class="navbar-item">
+                            <a href="/<%= user._id %>/logout" class="navbar-item">
                                 Logout
                             </a>
                         </div>
@@ -91,9 +91,9 @@
         <div class="column is-6 contact" id="contact-pane">
             <div class="no-contact-view is-centered has-text-centered is-lig" style="width:100%;">
                 <i class="fa fa-user"></i>
-                <div class="subtitle">
+                <!-- <div class="subtitle">
                     You don't have any contacts, yet.
-                </div>
+                </div> -->
             </div>
             <div class="contact-view is-hidden">
                 <div class="full-name subtitle is-1">Abe Sanchez</div>
@@ -134,7 +134,7 @@
                             <button class="button is-light" onclick="openContactModal(true)">Edit</button>
                         </div>
                         <div class="control">
-                            <button class="button is-danger">Delete</button>
+                            <button class="button is-danger" v-on:click="deleteContact()">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -201,7 +201,7 @@
 
                         <div class="field is-grouped">
                             <div class="control">
-                                <input type="submit" class="button is-light" onclick="submitContact()">
+                                <input type="submit" class="button is-light" onclick="submitContact()" v-on:click="addContact">
                             </div>
                             <div class="control">
                                 <button class="button is-danger" onclick="closeContactModal()">Cancel</button>
@@ -272,13 +272,12 @@
     }
 
     var contactList = <%- contactList %>
-    // console.log("connies: " + contactList);
+
     $(document).ready(function() {
         var burger = document.querySelector('.burger');
         var menu = document.querySelector('#'+burger.dataset.target);
         var nav = document.querySelector('.account');
         var navList = document.querySelector("#"+nav.dataset.target);
-
 
         burger.addEventListener('click', function() {
             burger.classList.toggle('is-active');
@@ -289,39 +288,11 @@
             nav.parentElement.classList.toggle('is-active');
         });
 
-        // Abe's original!
-        // window.list = {};
-
-        // for (var i = 0; i <= 40; i++) {
-        //     window.list[i] = {
-        //         fullName: faker.name.findName(),
-        //         randomText: faker.lorem.lines(),
-        //         email: faker.internet.email()
-        //     };
-        // }
-        
-        console.log(contactList);
-
-        window.list = contactList;
-
-        for (var i = 0; i < contactList.length; i++) {
-            window.list[i] = {
-                firstName: contactList[i].firstName,
-                lastName: contactList[i].lastName,
-                fullName: contactList[i].fullName,
-                company: contactList[i].company,
-                mobilePhone: contactList[i].mobilePhone,
-                homePhone: contactList[i].homePhone,
-                randomText: faker.lorem.lines(),
-                email: contactList[i].email,
-                user: contactList[i].user
-            };
-        }
-
         vue = new Vue({
             el: '#contact-app',
             data: {
-                contacts: window.list
+                contacts: contactList,
+                activeContact: null
             },
             methods: {
                 showContact: function(contact, index) {
@@ -331,9 +302,32 @@
                     $('.contact .full-name').text(contact.fullName);
                     $('.contact .first-name').text(contact.firstName);
                     $('.contact .last-name').text(contact.lastName);
-                    $('.contact .company').text(contact.fullName);
+                    $('.contact .mobile-phone').text(contact.mobilePhone);
+                    $('.contact .home-phone').text(contact.homePhone);
+                    $('.contact .company').text(contact.company);
                     $('.contact .email').text(contact.email);
+                    this.activeContact = contact;
                 },
+                deleteContact: function() {
+
+
+
+                    this.contacts.splice(this.contacts.indexOf(this.activeContact), 1);
+                    document.querySelector('.no-contact-view').classList.remove('is-hidden');
+                    document.querySelector('.contact-view').classList.add('is-hidden');
+                },
+                addContact: function () {
+                    var contactToAdd = {
+                        fullName: $('.first-name-input').val() + " " + $('.last-name-input').val(),
+                        firstName: $('.first-name-input').val(),
+                        lastName: $('.last-name-input').val(),
+                        mobilePhone: $('.mobile-phone-input').val(),
+                        homePhone: $('.home-phone-input').val(),
+                        company: $('.company-input').val(),
+                        email: $('.email-input').val()
+                    };
+                    this.contacts.push(contactToAdd);
+                }
             }
         });
     });

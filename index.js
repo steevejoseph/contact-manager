@@ -50,7 +50,7 @@ app.use(express.static(__dirname + '/public'));
 
 // render root route (splash/landing page).
 app.get("/", function(req, res){
-	res.render('splash.ejs');
+	res.render('login.ejs');
 });
 
 
@@ -149,10 +149,6 @@ app.post("/:id/addcontact", function(req, res){
 		
 	}, function(err, newContact){
 		if(err){console.log(err);}
-		else{
-			// console.log("Created contact: " + newContact);
-			res.redirect("/" + req.params.id);
-		}
 	});
 });
 
