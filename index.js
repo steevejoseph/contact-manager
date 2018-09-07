@@ -162,9 +162,10 @@ function isLoggedIn(req, res, next){
 };
 
 // render search route (splash/landing page).
-app.get("/:id/searchcontact", function(req, res) {
-	res.render('search.ejs');
-});
+// app.get("/:id/searchcontact", function(req, res) {
+// 	res.render('search.ejs');
+// });
+
 app.post("/:id/searchcontact", function(req, res) {
     var query = req.body.query;
     var userID = req.params.id;
