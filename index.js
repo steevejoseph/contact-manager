@@ -188,7 +188,7 @@ app.delete("/:id/deletecontact", function(req, res) {
 app.post("/:id/searchcontact", function(req, res) {
     var query = req.body.query;
     var userID = req.params.id;
-    Contact.find({name:query, user:userID}, function(err, contacts) {
+    Contact.find({firstName:query, user:userID}, function(err, contacts) {
         if(err) {
             console.log(err);
             res.render('search.ejs');
