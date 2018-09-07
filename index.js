@@ -50,7 +50,7 @@ app.use(express.static(__dirname + '/public'));
 
 // render root route (splash/landing page).
 app.get("/", function(req, res){
-	res.render('splash.ejs');
+	res.render('login.ejs');
 });
 
 
@@ -113,7 +113,9 @@ app.get("/:id", isLoggedIn,function(req, res) {
     		Contact.find({user:req.params.id}, function(err, contactList){
     			if(err){console.log(err);}
     			else{
-    				 
+    				console.log(contactList);
+    				contactList = JSON.stringify(contactList);
+    				console.log(typeof contactList);
     				res.render("dashboard.ejs", {user:user, contactList:contactList});
     			}
 
@@ -131,6 +133,7 @@ app.post("/:id/addcontact", function(req, res){
 	// pull info from page.
 	// make new contact
 	// redir to the "home" page.
+	console.log("HIT ADDCONTACT!");
 	Contact.create({
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
@@ -146,10 +149,6 @@ app.post("/:id/addcontact", function(req, res){
 		
 	}, function(err, newContact){
 		if(err){console.log(err);}
-		else{
-			console.log("Created contact: " + newContact);
-			res.redirect("/" + req.params.id);
-		}
 	});
 });
 

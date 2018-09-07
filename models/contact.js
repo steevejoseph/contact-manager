@@ -11,7 +11,7 @@ var contactSchema = new mongoose.Schema({
 
     // email validation will be done on frontend.
     email:String,
-    birthday:Date,
+    // birthday:Date,
     user: {type:mongoose.Schema.Types.ObjectId, ref:'User'}
 });
 

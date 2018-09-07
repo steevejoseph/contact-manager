@@ -39,7 +39,7 @@
                                 Settings
                             </a>
                             <hr class="navbar-divider">
-                            <a href="/<%= user._id%>/logout" class="navbar-item">
+                            <a href="/<%= user._id %>/logout" class="navbar-item">
                                 Logout
                             </a>
                         </div>
@@ -58,7 +58,10 @@
             <!-- Search bar and add button -->
             <div class="field is-grouped">
                 <div class="control is-expanded">
-                    <input class="input search" type="text" placeholder="Search">
+                    <form action="/<%= user._id %>/searchcontact" method="POST">
+                        <input class="input search" type="text" placeholder="Search" name="query">
+                    </form>
+                    
                 </div>
                 <div class="control">
                     <button class="button is-light addButton" onclick="openContactModal(false)">
@@ -88,9 +91,9 @@
         <div class="column is-6 contact" id="contact-pane">
             <div class="no-contact-view is-centered has-text-centered is-lig" style="width:100%;">
                 <i class="fa fa-user"></i>
-                <div class="subtitle">
+                <!-- <div class="subtitle">
                     You don't have any contacts, yet.
-                </div>
+                </div> -->
             </div>
             <div class="contact-view is-hidden">
                 <div class="full-name subtitle is-1">Abe Sanchez</div>
@@ -131,7 +134,7 @@
                             <button class="button is-light" onclick="openContactModal(true)">Edit</button>
                         </div>
                         <div class="control">
-                            <button class="button is-danger">Delete</button>
+                            <button class="button is-danger" v-on:click="deleteContact()">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -141,25 +144,25 @@
             <div class="modal contactModal">
                 <div class="modal-background"></div>
                 <div class="modal-card">
-                    <section class="modal-card-body contact-modal">
+                    <form class="modal-card-body contact-modal" action="/<%= user._id%>/addcontact" method="POST">
                         <div class="field">
                             <label class="label">First Name</label>
                             <div class="control">
-                                <input id="first-name" class="input first-name-input" type="text" placeholder="First Name">
+                                <input id="first-name" class="input first-name-input" type="text" placeholder="First Name" name="firstName">
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Last Name</label>
                             <div class="control">
-                                <input class="input last-name-input" type="text" placeholder="Last Name">
+                                <input class="input last-name-input" type="text" placeholder="Last Name" name="lastName">
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Company</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input class="input company-input" type="text" placeholder="Company">
+                                <input class="input company-input" type="text" placeholder="Company" name="company">
                                 <span class="icon is-small is-left">
                                     <i class="fa fa-suitcase"></i>
                                 </span>
@@ -169,7 +172,7 @@
                         <div class="field">
                             <label class="label">Mobile Phone</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input class="input mobile-phone-input" type="text" placeholder="Mobile Phone">
+                                <input class="input mobile-phone-input" type="text" placeholder="Mobile Phone" name="mobilePhone">
                                 <span class="icon is-small is-left">
                                     <i class="fa fa-phone"></i>
                                 </span>
@@ -179,7 +182,7 @@
                         <div class="field">
                             <label class="label">Home Phone</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input class="input home-phone-input" type="text" placeholder="Home Phone">
+                                <input class="input home-phone-input" type="text" placeholder="Home Phone" name="homePhone">
                                 <span class="icon is-small is-left">
                                     <i class="fa fa-home"></i>
                                 </span>
@@ -189,7 +192,7 @@
                         <div class="field">
                             <label class="label">Email</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input class="input email-input" type="email" placeholder="Email">
+                                <input class="input email-input" type="email" placeholder="Email" name="email">
                                 <span class="icon is-small is-left">
                                     <i class="fa fa-envelope"></i>
                                 </span>
@@ -198,13 +201,13 @@
 
                         <div class="field is-grouped">
                             <div class="control">
-                                <button class="button is-light" onclick="submitContact()">Submit</button>
+                                <input type="submit" class="button is-light" onclick="submitContact()" v-on:click="addContact">
                             </div>
                             <div class="control">
                                 <button class="button is-danger" onclick="closeContactModal()">Cancel</button>
                             </div>
                         </div>
-                    </section>
+                    </form>
                 </div>
             </div>
 
@@ -235,6 +238,8 @@
     }
 
     function fillContactModal() {
+        
+        // Abe's original.
         $('.first-name-input').val( $('.first-name').text() );
         $('.last-name-input').val( $('.last-name').text() );
         $('.mobile-phone-input').val( $('.mobile-phone').text() );
@@ -260,16 +265,19 @@
     }
 
     function submitContact() {
-        // write code to post contact
+        console.log("In subContact()!");
+       
+        
         closeContactModal();
     }
+
+    var contactList = <%- contactList %>
 
     $(document).ready(function() {
         var burger = document.querySelector('.burger');
         var menu = document.querySelector('#'+burger.dataset.target);
         var nav = document.querySelector('.account');
         var navList = document.querySelector("#"+nav.dataset.target);
-
 
         burger.addEventListener('click', function() {
             burger.classList.toggle('is-active');
@@ -280,20 +288,11 @@
             nav.parentElement.classList.toggle('is-active');
         });
 
-        window.list = {};
-
-        for (var i = 0; i <= 40; i++) {
-            window.list[i] = {
-                fullName: faker.name.findName(),
-                randomText: faker.lorem.lines(),
-                email: faker.internet.email()
-            };
-        }
-
         vue = new Vue({
             el: '#contact-app',
             data: {
-                contacts: window.list
+                contacts: contactList,
+                activeContact: null
             },
             methods: {
                 showContact: function(contact, index) {
@@ -301,11 +300,34 @@
                     $('.card').removeClass('active');
                     $('#contact-card-' + index).addClass('active');
                     $('.contact .full-name').text(contact.fullName);
-                    $('.contact .first-name').text(contact.fullName);
-                    $('.contact .last-name').text(contact.fullName);
-                    $('.contact .company').text(contact.fullName);
+                    $('.contact .first-name').text(contact.firstName);
+                    $('.contact .last-name').text(contact.lastName);
+                    $('.contact .mobile-phone').text(contact.mobilePhone);
+                    $('.contact .home-phone').text(contact.homePhone);
+                    $('.contact .company').text(contact.company);
                     $('.contact .email').text(contact.email);
+                    this.activeContact = contact;
                 },
+                deleteContact: function() {
+
+
+
+                    this.contacts.splice(this.contacts.indexOf(this.activeContact), 1);
+                    document.querySelector('.no-contact-view').classList.remove('is-hidden');
+                    document.querySelector('.contact-view').classList.add('is-hidden');
+                },
+                addContact: function () {
+                    var contactToAdd = {
+                        fullName: $('.first-name-input').val() + " " + $('.last-name-input').val(),
+                        firstName: $('.first-name-input').val(),
+                        lastName: $('.last-name-input').val(),
+                        mobilePhone: $('.mobile-phone-input').val(),
+                        homePhone: $('.home-phone-input').val(),
+                        company: $('.company-input').val(),
+                        email: $('.email-input').val()
+                    };
+                    this.contacts.push(contactToAdd);
+                }
             }
         });
     });
