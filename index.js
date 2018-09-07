@@ -7,13 +7,15 @@ var express 				= require("express"),
 	passportLocalMongoose	= require("passport-local-mongoose"),
 	app     				= express();
 
+//route for contacts api
+const apiRoute = require('./api/contacts.js');
 // Include the Schemas/Models
 var	Contact  = require("./models/contact.js"),
 	User     = require("./models/user.js");
 
 // Connect to URL set in env variables.
-// mongoose.connect('mongodb://team7:ABC123@ds133152.mlab.com:33152/contact-manager', {useNewUrlParser: true});
-mongoose.connect(process.env.DBURL, {useNewUrlParser:true});
+mongoose.connect('mongodb://team7:ABC123@ds133152.mlab.com:33152/contact-manager', {useNewUrlParser: true});
+//mongoose.connect(process.env.DBURL, {useNewUrlParser:true});
 
 app.set("view engine", "ejs");
 
@@ -47,6 +49,8 @@ passport.deserializeUser(User.deserializeUser());
 
 // Serve the public dir
 app.use(express.static(__dirname + '/public'));
+//serve the api
+app.use(express.static(__dirname + '/api'), apiRoute);
 
 // render root route (splash/landing page).
 app.get("/", function(req, res){
