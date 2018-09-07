@@ -141,25 +141,25 @@
             <div class="modal contactModal">
                 <div class="modal-background"></div>
                 <div class="modal-card">
-                    <section class="modal-card-body contact-modal">
+                    <form class="modal-card-body contact-modal" action="/<%= user._id%>/addcontact" method="POST">
                         <div class="field">
                             <label class="label">First Name</label>
                             <div class="control">
-                                <input id="first-name" class="input first-name-input" type="text" placeholder="First Name">
+                                <input id="first-name" class="input first-name-input" type="text" placeholder="First Name" name="firstName">
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Last Name</label>
                             <div class="control">
-                                <input class="input last-name-input" type="text" placeholder="Last Name">
+                                <input class="input last-name-input" type="text" placeholder="Last Name" name="lastName">
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">Company</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input class="input company-input" type="text" placeholder="Company">
+                                <input class="input company-input" type="text" placeholder="Company" name="company">
                                 <span class="icon is-small is-left">
                                     <i class="fa fa-suitcase"></i>
                                 </span>
@@ -169,7 +169,7 @@
                         <div class="field">
                             <label class="label">Mobile Phone</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input class="input mobile-phone-input" type="text" placeholder="Mobile Phone">
+                                <input class="input mobile-phone-input" type="text" placeholder="Mobile Phone" name="mobilePhone">
                                 <span class="icon is-small is-left">
                                     <i class="fa fa-phone"></i>
                                 </span>
@@ -179,7 +179,7 @@
                         <div class="field">
                             <label class="label">Home Phone</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input class="input home-phone-input" type="text" placeholder="Home Phone">
+                                <input class="input home-phone-input" type="text" placeholder="Home Phone" name="homePhone">
                                 <span class="icon is-small is-left">
                                     <i class="fa fa-home"></i>
                                 </span>
@@ -189,7 +189,7 @@
                         <div class="field">
                             <label class="label">Email</label>
                             <div class="control has-icons-left has-icons-right">
-                                <input class="input email-input" type="email" placeholder="Email">
+                                <input class="input email-input" type="email" placeholder="Email" name="email">
                                 <span class="icon is-small is-left">
                                     <i class="fa fa-envelope"></i>
                                 </span>
@@ -198,13 +198,13 @@
 
                         <div class="field is-grouped">
                             <div class="control">
-                                <button class="button is-light" onclick="submitContact()">Submit</button>
+                                <input type="submit" class="button is-light" onclick="submitContact()">
                             </div>
                             <div class="control">
                                 <button class="button is-danger" onclick="closeContactModal()">Cancel</button>
                             </div>
                         </div>
-                    </section>
+                    </form>
                 </div>
             </div>
 
@@ -235,6 +235,8 @@
     }
 
     function fillContactModal() {
+        
+        // Abe's original.
         $('.first-name-input').val( $('.first-name').text() );
         $('.last-name-input').val( $('.last-name').text() );
         $('.mobile-phone-input').val( $('.mobile-phone').text() );
@@ -260,10 +262,14 @@
     }
 
     function submitContact() {
-        // write code to post contact
+        console.log("In subContact()!");
+       
+        
         closeContactModal();
     }
 
+    var contactList = <%- contactList %>
+    // console.log("connies: " + contactList);
     $(document).ready(function() {
         var burger = document.querySelector('.burger');
         var menu = document.querySelector('#'+burger.dataset.target);
@@ -280,13 +286,26 @@
             nav.parentElement.classList.toggle('is-active');
         });
 
-        window.list = {};
+        // Abe's original!
+        // window.list = {};
 
-        for (var i = 0; i <= 40; i++) {
+        // for (var i = 0; i <= 40; i++) {
+        //     window.list[i] = {
+        //         fullName: faker.name.findName(),
+        //         randomText: faker.lorem.lines(),
+        //         email: faker.internet.email()
+        //     };
+        // }
+        
+        console.log(contactList);
+
+        window.list = contactList;
+
+        for (var i = 0; i < contactList.length; i++) {
             window.list[i] = {
-                fullName: faker.name.findName(),
+                fullName: contactList[i].fullName,
                 randomText: faker.lorem.lines(),
-                email: faker.internet.email()
+                email: contactList[i].fullName
             };
         }
 
