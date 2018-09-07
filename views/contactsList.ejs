@@ -1,0 +1,10 @@
+<% if(typeof contacts != 'undefined') { %>
+        <% for(var i = 0; i < contacts.length; i++) { %>
+            <p><% contacts[i].firstName%></p>
+            <p><% contacts[i].lastName%></p>
+            <p style="margin-left: 40px"><% contacts[i].mobilePhone%></p>
+            <p style="margin-left: 40px"><% contacts[i].homePhone%></p>
+            <p style="margin-left: 40px"><% contacts[i].email%></p>
+            <p style="margin-left: 40px"><% contacts[i].company%></p>
+        <% } %>
+        <% } %>
