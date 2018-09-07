@@ -161,6 +161,18 @@ function isLoggedIn(req, res, next){
 	res.redirect("/login");
 };
 
+app.delete("/:id/deletecontact", function(req, res) {
+    var contactID = mongoose.Types.ObjectId(req.body.id);
+    var userID = req.params.id;
+    console.log(contactID);
+    Contact.findByIdAndRemove(contactID, function(err0, contact) {
+        if(err0) console.log(err0);
+        else {
+            Contact.find({user:userID}, function(err1, contacts) {
+                if(err1) console.log(err1);
+                else res.redirect("/" + userID);
+            });
+
 // render search route (splash/landing page).
 // app.get("/:id/searchcontact", function(req, res) {
 // 	res.render('search.ejs');
