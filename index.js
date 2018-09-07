@@ -203,7 +203,32 @@ app.get("/:id/logout", function(req, res){
 	res.redirect("/");
 });
 
+// api route for new user.
+app.post("/api/users/new", function(req, res){
+	
+	console.log(req.body);
+	User.create({
+			firstName: req.body.firstName,
+	    	lastName: req.body.lastName,
+	
+	    	// email validation will be done on frontend.
+	    	email: req.body.email,
+	    	username: req.body.username,
+	
+	    	// hashed password
+	    	password: req.body.password,
+	    	birthday: req.body.date
+	},	function(err, new_user){
+		if(err) console.log(err);
+		else{
+			console.log(new_user);
+			res.send(JSON.stringify(new_user));
+		}
+	});
+});
+
 app.listen(process.env.PORT, process.env.IP, function(){
 	console.log('Server running!');
 	
 });
+
