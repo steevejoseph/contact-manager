@@ -4,7 +4,7 @@ var contactSchema = new mongoose.Schema({
 
     firstName: String,
     lastName: {type:String, default: 'Last Name'},
-
+    fullName:String,
     mobilePhone:String,
     homePhone:String,
     company:String,
