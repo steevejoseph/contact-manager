@@ -114,7 +114,7 @@ app.get("/:id", isLoggedIn,function(req, res) {
     			if(err){console.log(err);}
     			else{
     				 
-    				res.render("home.ejs", {user:user, contactList:contactList});
+    				res.render("dashboard.ejs", {user:user, contactList:contactList});
     			}
 
     		});
@@ -123,9 +123,9 @@ app.get("/:id", isLoggedIn,function(req, res) {
 });
 
 
-app.get("/:id/addcontact", function(req, res){
-	res.render("addcontact.ejs", {userId:req.params.id});
-});
+// app.get("/:id/addcontact", function(req, res){
+// 	res.render("addcontact.ejs", {userId:req.params.id});
+// });
 
 app.post("/:id/addcontact", function(req, res){
 	// pull info from page.
