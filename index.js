@@ -110,10 +110,49 @@ app.get("/:id", isLoggedIn,function(req, res) {
     		console.log(err);
     	} 
     	else{
-    		res.render("dashboard.ejs", {user:user});
+    		Contact.find({user:req.params.id}, function(err, contactList){
+    			if(err){console.log(err);}
+    			else{
+    				 
+    				res.render("dashboard.ejs", {user:user, contactList:contactList});
+    			}
+
+    		});
     	}
     });
 });
+
+
+// app.get("/:id/addcontact", function(req, res){
+// 	res.render("addcontact.ejs", {userId:req.params.id});
+// });
+
+app.post("/:id/addcontact", function(req, res){
+	// pull info from page.
+	// make new contact
+	// redir to the "home" page.
+	Contact.create({
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		fullName: req.body.firstName + " " + req.body.lastName,
+		company: req.body.company,
+		mobilePhone: req.body.mobilePhone,
+		homePhone: req.body.homePhone,
+		email: req.body.email,
+		birthday: req.body.birthday,
+		
+		user: req.params.id, 
+
+		
+	}, function(err, newContact){
+		if(err){console.log(err);}
+		else{
+			console.log("Created contact: " + newContact);
+			res.redirect("/" + req.params.id);
+		}
+	});
+});
+
 
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
@@ -122,7 +161,41 @@ function isLoggedIn(req, res, next){
 	res.redirect("/login");
 };
 
+app.delete("/:id/deletecontact", function(req, res) {
+    var contactID = mongoose.Types.ObjectId(req.body.id);
+    var userID = req.params.id;
+    console.log(contactID);
+    Contact.findByIdAndRemove(contactID, function(err0, contact) {
+        if(err0) console.log(err0);
+        else {
+            Contact.find({user:userID}, function(err1, contacts) {
+                if(err1) console.log(err1);
+                else res.redirect("/" + userID);
+            });
+        }
+    });
+});
+// render search route (splash/landing page).
+// app.get("/:id/searchcontact", function(req, res) {
+// 	res.render('search.ejs');
+// });
 
+app.post("/:id/searchcontact", function(req, res) {
+    var query = req.body.query;
+    var userID = req.params.id;
+    Contact.find({name:query, user:userID}, function(err, contacts) {
+        if(err) {
+            console.log(err);
+            res.render('search.ejs');
+        }
+        else {
+            for(var i = 0; i < contacts.length; i++) {
+                console.log(contacts[i]);
+            }
+            res.render('search.ejs', {contacts:contacts});
+        }
+    });
+});
 
 //logout route!
 app.get("/:id/logout", function(req, res){
