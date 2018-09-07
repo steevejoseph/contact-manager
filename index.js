@@ -161,6 +161,28 @@ function isLoggedIn(req, res, next){
 	res.redirect("/login");
 };
 
+// render search route (splash/landing page).
+// app.get("/:id/searchcontact", function(req, res) {
+// 	res.render('search.ejs');
+// });
+
+app.post("/:id/searchcontact", function(req, res) {
+    var query = req.body.query;
+    var userID = req.params.id;
+    Contact.find({name:query, user:userID}, function(err, contacts) {
+        if(err) {
+            console.log(err);
+            res.render('search.ejs');
+        }
+        else {
+            for(var i = 0; i < contacts.length; i++) {
+                console.log(contacts[i]);
+            }
+            res.render('search.ejs', {contacts:contacts});
+        }
+    });
+});
+
 //logout route!
 app.get("/:id/logout", function(req, res){
 	req.logout();
