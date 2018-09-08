@@ -64,7 +64,7 @@
                     
                 </div>
                 <div class="control">
-                    <button class="button is-light addButton" onclick="openContactModal(false)">
+                    <button class="button is-light addButton" onclick="openContactModal()">
                         <span class="icon is-small">
                             <i class="fa fa-plus"></i>
                         </span>
@@ -131,9 +131,6 @@
 
                     <div class="field is-grouped">
                         <div class="control">
-                            <button class="button is-light" onclick="openContactModal(true)">Edit</button>
-                        </div>
-                        <div class="control">
                             <button class="button is-danger" v-on:click="deleteContact()">Delete</button>
                         </div>
                     </div>
@@ -144,7 +141,7 @@
             <div class="modal contactModal">
                 <div class="modal-background"></div>
                 <div class="modal-card">
-                    <form class="modal-card-body contact-modal" action="/<%= user._id%>/addcontact" method="POST">
+                    <section class="modal-card-body contact-modal">
                         <div class="field">
                             <label class="label">First Name</label>
                             <div class="control">
@@ -201,13 +198,13 @@
 
                         <div class="field is-grouped">
                             <div class="control">
-                                <input type="submit" class="button is-light" onclick="submitContact()" v-on:click="addContact">
+                                <button class="button is-light" onclick="submitContact()" v-on:click="addContact()">Submit</button>
                             </div>
                             <div class="control">
                                 <button class="button is-danger" onclick="closeContactModal()">Cancel</button>
                             </div>
                         </div>
-                    </form>
+                    </section>
                 </div>
             </div>
 
@@ -220,14 +217,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js" integrity="sha256-4PIvl58L9q7iwjT654TQJM+C/acEyoG738iL8B8nhXg=" crossorigin="anonymous"></script>
     <script>
 
-    function openContactModal(isEditContact) {
+    function openContactModal() {
         var modal = document.querySelector('.contactModal');
 
-        if (isEditContact) {
-            fillContactModal();
-        } else {
-            clearContactModal();
-        }
+        clearContactModal();
 
         modal.classList.toggle('is-active');
     }
@@ -238,8 +231,6 @@
     }
 
     function fillContactModal() {
-        
-        // Abe's original.
         $('.first-name-input').val( $('.first-name').text() );
         $('.last-name-input').val( $('.last-name').text() );
         $('.mobile-phone-input').val( $('.mobile-phone').text() );
@@ -265,13 +256,11 @@
     }
 
     function submitContact() {
-        console.log("In subContact()!");
-       
-        
         closeContactModal();
     }
 
-    var contactList = <%- contactList %>
+    var contactList = <%- contactList %>;
+    var user = <%- JSON.stringify(user) %>;
 
     $(document).ready(function() {
         var burger = document.querySelector('.burger');
@@ -309,9 +298,14 @@
                     this.activeContact = contact;
                 },
                 deleteContact: function() {
-
-
-
+                    var deleteObject = { userID: user._id,
+                                         contactID: this.activeContact._id }
+                    $.ajax({
+                    type: "POST",
+                    url: "/<%- user._id %>/deletecontact",
+                    data: deleteObject,
+                    dataType: "json"
+                    });
                     this.contacts.splice(this.contacts.indexOf(this.activeContact), 1);
                     document.querySelector('.no-contact-view').classList.remove('is-hidden');
                     document.querySelector('.contact-view').classList.add('is-hidden');
@@ -326,6 +320,17 @@
                         company: $('.company-input').val(),
                         email: $('.email-input').val()
                     };
+                    $.ajax({
+                    type: "POST",
+                    url: "/<%- user._id %>/addcontact",
+                    data: contactToAdd,
+                    dataType: "json",
+                    success: function(data) {
+                        contactToAdd._id = data.success;
+                        console.log(contactToAdd);
+                        
+                    }
+                    });
                     this.contacts.push(contactToAdd);
                 }
             }

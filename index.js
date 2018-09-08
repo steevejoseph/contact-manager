@@ -148,7 +148,10 @@ app.post("/:id/addcontact", function(req, res){
 
 		
 	}, function(err, newContact){
-		if(err){console.log(err);}
+		if(err){console.log(err);
+		} 
+		var response = { success: newContact._id };
+		res.send(JSON.stringify(response));
 	});
 });
 
@@ -160,10 +163,11 @@ function isLoggedIn(req, res, next){
 	res.redirect("/login");
 };
 
-app.delete("/:id/deletecontact", function(req, res) {
-    var contactID = mongoose.Types.ObjectId(req.body.id);
-    var userID = req.params.id;
-    console.log(contactID);
+app.post("/:id/deletecontact", function(req, res) {
+	console.log(req.body);
+	
+    var contactID = mongoose.Types.ObjectId(req.body.contactID);
+    var userID = req.body.userID;
     Contact.findByIdAndRemove(contactID, function(err0, contact) {
         if(err0) console.log(err0);
         else {
@@ -226,7 +230,7 @@ app.post("/api/users/new", function(req, res){
 	});
 });
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(2000, process.env.IP, function(){
 	console.log('Server running!');
 	
 });
