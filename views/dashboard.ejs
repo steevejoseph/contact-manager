@@ -10,14 +10,15 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dashboard.css">
+    <link rel="shortcut icon" type="image/png" href="Icon.png"/>
 </head>
 
 <body>
     <nav class="navbar has-shadow">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="../">
-                    <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox">
+                <a class="navbar-item">
+                    <img src="ComaLogo.png" alt="Coma"  height="100px">
                 </a>
 
                 <div class="navbar-burger burger" data-target="navMenu">
@@ -54,10 +55,7 @@
             <!-- Search bar and add button -->
             <div class="field is-grouped">
                 <div class="control is-expanded">
-                    <form action="/<%= user._id %>/searchcontact" method="POST">
-                        <input class="input search" type="text" placeholder="Search" name="query">
-                    </form>
-                    
+                    <input class="input search" type="text" placeholder="Search" v-on:input="search()">
                 </div>
                 <div class="control">
                     <button class="button is-light addButton" onclick="openContactModal()">
@@ -255,8 +253,18 @@
         closeContactModal();
     }
 
+    function compare(a, b) {
+        if (a.fullName.toLowerCase() < b.fullName.toLowerCase())
+            return -1;
+        if (a.fullName.toLowerCase() > b.fullName.toLowerCase())
+            return 1;
+        return 0;
+    }
+
     var contactList = <%- contactList %>;
     var user = <%- JSON.stringify(user) %>;
+
+    contactList.sort(compare);
 
     $(document).ready(function() {
         var burger = document.querySelector('.burger');
@@ -294,14 +302,16 @@
                     this.activeContact = contact;
                 },
                 deleteContact: function() {
-                    var deleteObject = { userID: user._id,
-                                         contactID: this.activeContact._id }
+                    var deleteObject = { contactID: this.activeContact._id };
+                    $('.card').removeClass('active');
+
                     $.ajax({
-                    type: "POST",
-                    url: "/<%- user._id %>/deletecontact",
-                    data: deleteObject,
-                    dataType: "json"
+                        type: "POST",
+                        url: "/<%- user._id %>/deletecontact",
+                        data: deleteObject,
+                        dataType: "json"
                     });
+                    
                     this.contacts.splice(this.contacts.indexOf(this.activeContact), 1);
                     document.querySelector('.no-contact-view').classList.remove('is-hidden');
                     document.querySelector('.contact-view').classList.add('is-hidden');
@@ -316,18 +326,37 @@
                         company: $('.company-input').val(),
                         email: $('.email-input').val()
                     };
+                    var self = this;
+
                     $.ajax({
-                    type: "POST",
-                    url: "/<%- user._id %>/addcontact",
-                    data: contactToAdd,
-                    dataType: "json",
-                    success: function(data) {
-                        contactToAdd._id = data.success;
-                        console.log(contactToAdd);
-                        
-                    }
+                        type: "POST",
+                        url: "/<%- user._id %>/addcontact",
+                        data: contactToAdd,
+                        dataType: "json",
+                        success: function(data) {
+                            contactToAdd._id = data;
+                            self.contacts.push(contactToAdd);
+                            self.contacts.sort(compare);
+                            self.activeContact = contactToAdd;
+                            self.showContact(contactToAdd, self.contacts.indexOf(contactToAdd));
+                        }
                     });
-                    this.contacts.push(contactToAdd);
+                },
+                search: function() {
+                    var input = $('.search').val();
+                    var queryObject = { query: input };
+                    var self = this;
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/<%- user._id %>/searchcontact",
+                        data: queryObject,
+                        dataType: "json",
+                        success: function(data) {
+                            self.contacts = data;
+                            self.contacts.sort(compare);
+                        }
+                    });
                 }
             }
         });
