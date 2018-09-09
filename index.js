@@ -5,6 +5,7 @@ var express 				= require("express"),
 	bodyParser				= require("body-parser"),
 	LocalStrategy			= require("passport-local"),
 	passportLocalMongoose	= require("passport-local-mongoose"),
+	sanitize				= require("mongo-sanitize"),
 	app     				= express();
 
 // Include the Schemas/Models
@@ -164,7 +165,7 @@ app.post("/:id/deletecontact", function(req, res) {
 });
 
 app.post("/:id/searchcontact", function(req, res) {
-	var query = req.body.query;
+	var query = sanitize(req.body.query);
 	var userID = req.params.id;
 
 	Contact.find({ user: userID, fullName: {'$regex': query, '$options': 'i'} }, function(err, contacts) {
