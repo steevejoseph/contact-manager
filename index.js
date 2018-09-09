@@ -7,6 +7,7 @@ var express 				= require("express"),
 	passportLocalMongoose	= require("passport-local-mongoose"),
 	app     				= express();
 
+
 // Include the Schemas/Models
 var	Contact  = require("./models/contact.js"),
 	User     = require("./models/user.js");
@@ -48,7 +49,8 @@ passport.deserializeUser(User.deserializeUser());
 // Serve the public dir
 app.use(express.static(__dirname + '/public'));
 
-// render root route (splash/landing page).
+
+// render root route (splash/landing page). 
 app.get("/", function(req, res){
 	res.render('login.ejs');
 });
@@ -69,14 +71,15 @@ app.post("/signup", function(req, res){
 		}
 		
 		passport.authenticate("local")(req, res, function(){
-			res.render("login.ejs");
+			res.render('login.ejs');
 		});
 	});
 });
 
 
+
 app.get("/login", function(req, res){
-	res.render("login.ejs");
+	res.render('login.ejs'); 
 });
 
 // Perform authentication on login
@@ -87,6 +90,7 @@ app.post("/login", function(req, res){
     	return;
     	
     } if (!user) { 
+    	console.log('Incorrect username or password');
     	return res.redirect('/login'); 
     }
     
