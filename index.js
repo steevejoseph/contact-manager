@@ -5,6 +5,7 @@ var express 				= require("express"),
 	bodyParser				= require("body-parser"),
 	LocalStrategy			= require("passport-local"),
 	passportLocalMongoose	= require("passport-local-mongoose"),
+	sanitize				= require("mongo-sanitize"),
 	app     				= express();
 
 
@@ -117,27 +118,18 @@ app.get("/:id", isLoggedIn,function(req, res) {
     		Contact.find({user:req.params.id}, function(err, contactList){
     			if(err){console.log(err);}
     			else{
-    				console.log(contactList);
     				contactList = JSON.stringify(contactList);
-    				console.log(typeof contactList);
     				res.render("dashboard.ejs", {user:user, contactList:contactList});
     			}
-
     		});
     	}
     });
 });
 
-
-// app.get("/:id/addcontact", function(req, res){
-// 	res.render("addcontact.ejs", {userId:req.params.id});
-// });
-
 app.post("/:id/addcontact", function(req, res){
 	// pull info from page.
 	// make new contact
 	// redir to the "home" page.
-	console.log("HIT ADDCONTACT!");
 	Contact.create({
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
@@ -147,15 +139,13 @@ app.post("/:id/addcontact", function(req, res){
 		homePhone: req.body.homePhone,
 		email: req.body.email,
 		birthday: req.body.birthday,
-		
-		user: req.params.id, 
-
-		
+		user: req.params.id
 	}, function(err, newContact){
-		if(err){console.log(err);}
+		if(err){console.log(err);
+		} 
+		res.send(JSON.stringify(newContact._id));
 	});
 });
-
 
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){
@@ -164,10 +154,9 @@ function isLoggedIn(req, res, next){
 	res.redirect("/login");
 };
 
-app.delete("/:id/deletecontact", function(req, res) {
-    var contactID = mongoose.Types.ObjectId(req.body.id);
+app.post("/:id/deletecontact", function(req, res) {
+    var contactID = mongoose.Types.ObjectId(req.body.contactID);
     var userID = req.params.id;
-    console.log(contactID);
     Contact.findByIdAndRemove(contactID, function(err0, contact) {
         if(err0) console.log(err0);
         else {
@@ -178,24 +167,17 @@ app.delete("/:id/deletecontact", function(req, res) {
         }
     });
 });
-// render search route (splash/landing page).
-// app.get("/:id/searchcontact", function(req, res) {
-// 	res.render('search.ejs');
-// });
 
 app.post("/:id/searchcontact", function(req, res) {
-    var query = req.body.query;
-    var userID = req.params.id;
-    Contact.find({name:query, user:userID}, function(err, contacts) {
+	var query = sanitize(req.body.query);
+	var userID = req.params.id;
+
+	Contact.find({ user: userID, fullName: {'$regex': query, '$options': 'i'} }, function(err, contacts) {
         if(err) {
             console.log(err);
-            res.render('search.ejs');
         }
         else {
-            for(var i = 0; i < contacts.length; i++) {
-                console.log(contacts[i]);
-            }
-            res.render('search.ejs', {contacts:contacts});
+			res.send(JSON.stringify(contacts));
         }
     });
 });
@@ -208,8 +190,6 @@ app.get("/:id/logout", function(req, res){
 
 // api route for new user.
 app.post("/api/users/new", function(req, res){
-	
-	console.log(req.body);
 	User.create({
 			firstName: req.body.firstName,
 	    	lastName: req.body.lastName,
@@ -224,7 +204,6 @@ app.post("/api/users/new", function(req, res){
 	},	function(err, new_user){
 		if(err) console.log(err);
 		else{
-			console.log(new_user);
 			res.send(JSON.stringify(new_user));
 		}
 	});
@@ -232,6 +211,5 @@ app.post("/api/users/new", function(req, res){
 
 app.listen(process.env.PORT, process.env.IP, function(){
 	console.log('Server running!');
-	
 });
 
