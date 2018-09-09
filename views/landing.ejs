@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html>
+  
+  
+    <style>
+    
+      /*** NAVBAR ***/ 
+      
+      #navbar-signup {
+        color: #E1A295;
+      }
+      
+      
+      
+      /*** TOP HERO ***/
+      
+      #hero-top {
+        background-color: #7793A7;  
+      }
+      
+      #hero-title,
+      #hero-subtitle {
+        font-family: 'Lato', sans-serif;
+        margin-left: 50px;
+      }
+      
+      #hero-title
+      {
+        color: #FFFFFF;
+        font-size: 60px;
+        margin-top: -60px;
+      }    
+      
+      #hero-subtitle {
+        color: #FFFFFF;
+        margin-top: 30px;
+        font-size: 20px bold;
+      }
+      
+      
+      
+      /*** MIDDLE HERO ***/
+      
+      #hero-middle {
+        background-color: #E1A295;
+      }
+      
+      #hero-middle-title,
+      #hero-middle-subtitle {
+        font-family: 'Lato', sans-serif;
+        color: #F8F4E2;
+        font-size: 20px;
+        margin-left: 41%;
+      }
+      
+      #hero-middle-title {
+        margin-top: -80px;
+      }
+      
+      .hero-middle-column {
+        font-family: 'Lato', sans-serif;
+        color: #F8F4E2;
+        font-size: 60px;
+        margin-left: 90px;
+        margin-top: 40px;
+      }
+      
+      
+      
+      /*** BOTTOM HERO/ PICTURES/MEET TEAM ***/
+      #hero-bottom,
+      #hero-team {
+        background-color: #EED9C5;
+      }
+      
+      #hero-bottom-title {
+        font-family: 'Lato', sans-serif;
+        color: #BDBAB4;
+        font-size: 60px;
+        margin-left: 32%;
+      }
+        
+      #team-left-column {
+        margin-left: 15%;
+      }
+      
+      
+      
+      /*** FOOTER ***/  
+      #hero-footer-title,
+      #hero-footer-subtitle {
+        font-family: 'Lato', sans-serif;
+        color: #000000;
+        font-size: 20px;
+      }
+        
+    </style>
+    
+    
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Welcome to Coma</title>
+        <link rel="stylesheet" href="css/mystyles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+        <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>            
+    </head>
+    
+    
+    
+    <body>
+        
+      <!-- START NAV -->
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <span class="navbar-burger burger" data-target="navbarMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          
+          <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-end">
+             <a class="navbar-item is-active">
+                Home
+              </a>
+              <a class="navbar-item">
+                Team
+              </a>
+              <a class="navbar-item" id="navbar-login">
+                <span>Login</span>
+              </a>   
+              <a class="navbar-item" id="navbar-signup">
+                <span>Sign Up</span>
+              </a>  
+            </div>
+          </div>
+          
+        </div>
+      </nav>
+      <!-- END NAV -->
+        
+    
+    
+      <!-- START OF TOP HERO -->
+      <section class="hero is-fullheight" id="hero-top">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title" id="hero-title">
+              Coma
+            </h1> 
+            <h2 class="subtitle" id="hero-subtitle">
+              A new way to manage your contacts.
+            </h2>
+          </div>
+        </div>
+      </section>
+      <!-- END OF TOP HERO -->
+      
+      
+      
+      <!-- START OF MIDDLE HERO -->
+      <section class="hero is-fullheight" id="hero-middle">
+        <div class="hero-body">
+          <div class="container">
+            
+            <div class="title">
+              <h1 class="title" id="hero-middle-title">
+               So many features
+              </h1> 
+              <h2 class="subtitle" id="hero-middle-subtitle">
+                Something quirky here.
+              </h2>
+            </div>
+            
+            <div class="columns">
+              <div class="column hero-middle-column">
+                Add
+              </div>
+              
+              <div class="column hero-middle-column">
+                Search
+              </div>
+              
+              <div class="column hero-middle-column">
+                Delete
+              </div>
+            </div>
+              
+          </div>
+          </div>
+        </div>
+      </section>
+      <!-- END of MIDDLE HERO -->
+      
+      
+      
+       <!-- START OF BOTTOM HERO -->
+       
+       <!-- Meet the team hero -->
+      <section class="hero" id="hero-bottom">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title" id="hero-bottom-title">
+              Meet the Team
+            </h1> 
+          </div>
+        </div>
+      </section>
+      <!-- End of Meet the Team hero -->
+            
+      
+      <!-- START OF PICTURE HERO -->
+       <section class="hero is-full-height" id="hero-team">
+        <div class="hero-body">
+          <div class="container">
+            
+            <!-- Top row -->
+            <div class="columns" id="team-column-top">
+              <div class="column" id="team-left-column">
+                <figure class="image is-128x128">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+              </div>
+              
+              <div class="column">
+                <figure class="image is-128x128">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+              </div>
+              
+              <div class="column">
+                <figure class="image is-128x128">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+              </div>
+            </div>
+            <!-- end of top row -->
+            
+            
+            <!-- middle row -->
+            <div class="columns">
+              <div class="column" id="team-left-column">
+                <figure class="image is-128x128">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+              </div>
+              
+              <div class="column hero-bottom-column">
+                <figure class="image is-128x128">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+              </div>
+              
+              <div class="column hero-bottom-column">
+                <figure class="image is-128x128">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+              </div>
+            </div>
+            <!-- end of middle row -->
+            
+            <!-- bottom row -->
+            <div class="columns">
+              <div class="column" id="team-left-column">
+                <figure class="image is-128x128">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+              </div>
+              
+              <div class="column hero-bottom-column">
+                <figure class="image is-128x128">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+              </div>
+              
+              <div class="column hero-bottom-column">
+                <figure class="image is-128x128">
+                  <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                </figure>
+              </div>
+            </div>
+            <!-- end of bottom row -->
+            
+          </div>
+        </div>
+      </section>
+      <!-- End of Picture Hero -->
+      
+      
+       <!-- START OF FOOTER HERO -->
+      <section class="hero" id="hero-footer">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title" id="hero-footer-title">
+              Thank you to our sponsors
+            </h1> 
+            <h2 class="subtitle" id="hero-footer-subtitle">
+              Fanta and Supreme plus add privacy policy or terms of service lol
+            </h2>
+          </div>
+        </div>
+      </section>
+        
+    
+  </body>
+</html>

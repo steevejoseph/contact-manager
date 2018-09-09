@@ -52,12 +52,12 @@ app.use(express.static(__dirname + '/public'));
 
 // render root route (splash/landing page). 
 app.get("/", function(req, res){
-	res.render('login.ejs');
+	res.render('landing.ejs');
 });
 
 
 app.get("/signup", function(req, res){
-	res.render("signup.ejs");
+	res.render("login.ejs");
 	
 });
 
@@ -67,7 +67,7 @@ app.post("/signup", function(req, res){
 	User.register(new User({username:req.body.username}), req.body.password, function(err, user){
 		if(err){
 			console.log(err);
-			return res.render("signup.ejs");
+			return res.render("login.ejs");
 		}
 		
 		passport.authenticate("local")(req, res, function(){
