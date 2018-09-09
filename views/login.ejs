@@ -1,32 +1,116 @@
 <!DOCTYPE html>
 <html>
 
-  
-
   <style>
 
-    #loginButton {
+    body {
+      background: linear-gradient(to bottom right, #5b578e 0%,#5cd6d2 100%);
+      /* Add something here to make the background fixed */
+      
+    } 
+     
+    input {
+      border: 0;
+      outline: 0;
+      background: transparent;
+      border-bottom: 1px solid black;
+    }
+    
+    
+    
+    /*** Login Card Buttons ***/
+    
+    #login-button {
       display: block;
-      margin: 0px auto;
-      margin-bottom: 20px;
+      margin: 30px auto;
+      margin-bottom: 40px;
     }
    
-    #createAcctBtn {
+    #create-acct-button {
       display: block;
       margin: 0px auto;
       margin-bottom: 5px;
+      margin-top: 30px;
      }
+     
+     
+    /*** Title and header font ***/
+    #create-acct-button,
+    #login-button,
+    #login-title,
+    .title,
+    .subtitle 
+    h3 {
+      font-family: 'Lato', sans-serif;
+    }
+    
+    #navbar-title {
+      margin-top: 7px;
+      color: #555B6E;
+    }
+     
    
+    
+    /*** Login card ***/
+    
+    #login-card {
+      background-color: white;
+      border-radius: 25px;
+      margin-bottom: 50px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.19), 0 15px 50px rgba(0,0,0,0.23);
+    }
+    
+    #login-title {
+      color: white;
+     
+    }
+    
+    #username-input {
+      margin-top: 30px;
+      width: 100%;
+    }
+    
+    
+    
+    /*** Modal ***/
+    
+    #modal-first-name, 
+    #modal-last-name {
+      width: 35%;
+    }
+    
+    #modal-email {
+      width: 45%;
+    }
+    
+    #modal-phone-number {
+      width: 25%;
+    }
+    
+    #modal-username, 
+    #modal-password {
+      width: 70%;
+    }
+    
+    .modal-input {
+      margin-left: 65px;
+    }
+     
+     
+    
+    /*      This is all for the little 'or' lines on the login card lol
+     **     Be careful editing this bc I don't really know what does what
+     ***/
+     
     h6 {
       overflow: hidden;
       text-align: center;
       margin-bottom: 5px;
-      
     }
     
     h6:before,
     h6:after {
-      background-color:#000;
+      background-color:#738290;
       content: "";
       display: inline-block;
       height: 1px;
@@ -44,137 +128,165 @@
       left: 0.5em;
       margin-right: -50%;
     }
-
-    #theModal {
-	$modal-card-head-padding: 30px;
-
-     }
-  
+ 
   </style>
+
 
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Coma</title>
     <link rel="stylesheet" href="css/mystyles.css">
-   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
   </head>
 
+
   <body>
+    
+    
+    <!-- START NAV -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <span class="navbar-burger burger" data-target="navbarMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        
+        <div id="navbarMenu" class="navbar-menu">
+          <div class="navbar-start">
+            <h3 class="title" id="navbar-title">Coma</h3>
+          </div>
+          
+          <div class="navbar-end">
+           <a class="navbar-item is-active">
+              Home
+            </a>
+            <a class="navbar-item">
+              Team
+            </a>
+                  
+            <a class="navbar-item" id="nav-bar-signin">
+              <span>Login</span>
+            </a>   
+              
+            <a class="navbar-item" id="nav-bar-signin">
+              <span>Sign Up</span>
+            </a>  
+
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- END NAV -->
+    
+    
     <section class="hero">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title has-text-centered">Welcome to Coma</h1>
+          <h1 class="title has-text-centered is-size-1" id="login-title">Welcome</h1>
         </div>
       </div>
     </section>
-      <div class="container">
-        <div class="column is-4 is-offset-4">          
-          <div class="card">
-            <div class="card-content">
-              <p class="title is-centered">
-                <strong>Have an account?</strong>
-              </p>
-              <h3 class="subtitle">Login to continue</h3>
+    
+    <div class="container is-centered">
+      <div class="column is-4 is-offset-4">       
+        <div class="card" id="login-card">
+          <div class="card-content">
+            <p class="title is-centered">
+              <strong class="has-text-faded-blue ">Have an account?</strong>
+            </p>
+            <h3 class="subtitle">Login to continue</h3>
          
-	      <form class="control" action="/login" method="POST">
-                <div class="field">
-                  <input class="input" type="text" name="username" placeholder="Username" required>
-                </div>
-                <div class="field">
-	          <input class="input" type="password" name="password" placeholder="Password" required>
-                </div>
-	        <input class="button is-centered" type="submit" id="loginButton" value="Login">
-              </form>
+    	      <form class="control" action="/login" method="POST">
+              <div class="field">
+                <input class="input login-input" id="username-input" type="text" name="username" placeholder="Username" required>
+              </div>
+              <div class="field">
+                <input class="input login-input" type="password" name="password" placeholder="Password" required>
+              </div>
+              <input class="button is-centered is-medium" type="submit" id="login-button" value="Login">
+            </form>
          
-              <p><h6 class="subtitle is-6 has-text-centered">or</h6></p>
-                <button class="button is-centered is-medium is-white" id="createAcctBtn">Create an Account</button>
-              <!--<footer class="card-footer has-text-centered">-->
-               <!--<p class="card-footer-item">-->
-                 <!-- <form class="control" action="/signup">
-                    <input type="submit" class="button is-centered is-medium is-white" id="createAcctBtn" value="Create an Account">
-                  </form>
-                -->
-                <!--</p>-->
-              <!---</footer> -->
-            <div>
-          </div>
+            <p><h6 class="subtitle is-6 has-text-centered">or</h6></p>
+              <button class="button is-centered is-medium is-white" id="create-acct-button">Create an Account</button>
+          <div>
         </div>
-      </div>    
+      </div>
+    </div>    
  
-      <div class="modal" id="theModal">
-        <div class="modal-background"></div>
+  
+ 
+   <!-- START OF MODAL -->
+    <div class="modal" id="theModal">
+      <div class="modal-background"></div>
         <div class="modal-card">
           <header class="modal-card-head">
             <p class="modal-card-title">Create an Account</p>
-            <button class="delete" id="closeBtn" aria-label="close"></button>
+            <button class="delete" id="close-button" aria-label="close"></button>
           </header>
-	  <section class="modal-card-body">
-             
+          
+          
+          <section class="modal-card-body">
             <form class="control" action="/signup" method="POST">
-                <div class="field">
-                  <input class="input" type="text" name="firstName" placeholder="First Name" required>
-                </div>
-                <div class="field">
-	          <input class="input" type="text" name="last Name" placeholder="Last Name" required>
-                </div>
-                <div class="field">
-                  <input class="input" type="text" name="phone" placeholder="Phone Number">
-                </div>
-                <div class="field">
-                  <input class="input" type="email" name="Email" placeholder="Email">
-                </div>
-                <div class="field">
-                  <input class="input" type="text" name="username" placeholder="Username" required>
-                </div>
-                <div class="field">
-                  <input class="input" type="password" name="password" placeholder="Password" required>
-                </div>
-                
-                
-	          <input class="button is-centered is-success" type="submit" id="signupBtn" value="Sign Up">
-                 
-                
-              </form>
-         
-    
+              <div class="field">
+                <input class="input modal-input " id="modal-first-name" type="text" name="firstName" placeholder="First Name" required>
+                <input class="input" id="modal-last-name" type="text" name="last Name" placeholder="Last Name" required>
+              </div>
+            
+              <div class="field">
+                <input class="input modal-input" id="modal-email" type="email" name="Email" placeholder="Email">
+                <input class="input" id="modal-phone-number" type="text" name="phone" placeholder="Phone Number">
+              </div>
+            
+              <div class="field">
+                <input class="input modal-input" id="modal-username" type="text" name="username" placeholder="Username" required>
+              </div>
               
+              <div class="field">
+                <input class="input modal-input" id="modal-password" type="password" name="password" placeholder="Password" required>
+              </div>
+              <input class="button is-centered is-info modal-input" type="submit" id="signupBtn" value="Sign Up">
+            </form>
           </section>
 
           <footer class="modal-card-foot">
-            <button class="button" id="cancelBtn">Cancel</button>
+            <button class="button modal-input" id="cancel-button">Cancel</button>
           </footer>
+          
         </div>
       </div>
+    </div>
+    <!-- END OF MODAL --> 
+    
      
     <script type="text/javascript">
+    
+      // grab html elements and save them into javascript variables
       var modal = document.getElementById('theModal');
+      var modalButton = document.getElementById('create-acct-button');
+      var cancelSignup = document.getElementById('cancel-button');
+      var closeBtn = document.getElementById('close-button');
+
       
-      var modalButton = document.getElementById('createAcctBtn');
-
-      var cancelSignup = document.getElementById('cancelBtn');
-
-      var closeBtn = document.getElementById('closeBtn');
-
+      // Event Listeners for buttons
       modalButton.addEventListener("click", function(){
-        theModal.style.display = "block";
+        modal.style.display = "block";
       });
      
       cancelSignup.addEventListener("click", function(){
-	 modal.style.display = "none";
+	      modal.style.display = "none";
       });
 
       closeBtn.addEventListener("click", function(){
-	modal.style.display = "none";
+	      modal.style.display = "none";
       });
 
-      
-         
-      
     </script>
 
-
  </body>
-
 </html>
