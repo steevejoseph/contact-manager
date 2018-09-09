@@ -10,14 +10,15 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/dashboard.css">
+    <link rel="shortcut icon" type="image/png" href="Icon.png"/>
 </head>
 
 <body>
     <nav class="navbar has-shadow">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="../">
-                    <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox">
+                <a class="navbar-item">
+                    <img src="ComaLogo.png" alt="Coma"  height="100px">
                 </a>
 
                 <div class="navbar-burger burger" data-target="navMenu">
@@ -35,10 +36,6 @@
                         </a>
 
                         <div class="navbar-dropdown">
-                            <a class="navbar-item">
-                                Settings
-                            </a>
-                            <hr class="navbar-divider">
                             <a href="/<%= user._id %>/logout" class="navbar-item">
                                 Logout
                             </a>
@@ -58,13 +55,10 @@
             <!-- Search bar and add button -->
             <div class="field is-grouped">
                 <div class="control is-expanded">
-                    <form action="/<%= user._id %>/searchcontact" method="POST">
-                        <input class="input search" type="text" placeholder="Search" name="query">
-                    </form>
-                    
+                    <input class="input search" type="text" placeholder="Search" v-on:input="search()">
                 </div>
                 <div class="control">
-                    <button class="button is-light addButton" onclick="openContactModal(false)">
+                    <button class="button is-light addButton" onclick="openContactModal()">
                         <span class="icon is-small">
                             <i class="fa fa-plus"></i>
                         </span>
@@ -131,9 +125,6 @@
 
                     <div class="field is-grouped">
                         <div class="control">
-                            <button class="button is-light" onclick="openContactModal(true)">Edit</button>
-                        </div>
-                        <div class="control">
                             <button class="button is-danger" v-on:click="deleteContact()">Delete</button>
                         </div>
                     </div>
@@ -144,7 +135,7 @@
             <div class="modal contactModal">
                 <div class="modal-background"></div>
                 <div class="modal-card">
-                    <form class="modal-card-body contact-modal" action="/<%= user._id%>/addcontact" method="POST">
+                    <section class="modal-card-body contact-modal">
                         <div class="field">
                             <label class="label">First Name</label>
                             <div class="control">
@@ -201,13 +192,13 @@
 
                         <div class="field is-grouped">
                             <div class="control">
-                                <input type="submit" class="button is-light" onclick="submitContact()" v-on:click="addContact">
+                                <button class="button is-light" onclick="submitContact()" v-on:click="addContact()">Submit</button>
                             </div>
                             <div class="control">
                                 <button class="button is-danger" onclick="closeContactModal()">Cancel</button>
                             </div>
                         </div>
-                    </form>
+                    </section>
                 </div>
             </div>
 
@@ -220,14 +211,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js" integrity="sha256-4PIvl58L9q7iwjT654TQJM+C/acEyoG738iL8B8nhXg=" crossorigin="anonymous"></script>
     <script>
 
-    function openContactModal(isEditContact) {
+    function openContactModal() {
         var modal = document.querySelector('.contactModal');
 
-        if (isEditContact) {
-            fillContactModal();
-        } else {
-            clearContactModal();
-        }
+        clearContactModal();
 
         modal.classList.toggle('is-active');
     }
@@ -238,8 +225,6 @@
     }
 
     function fillContactModal() {
-        
-        // Abe's original.
         $('.first-name-input').val( $('.first-name').text() );
         $('.last-name-input').val( $('.last-name').text() );
         $('.mobile-phone-input').val( $('.mobile-phone').text() );
@@ -265,13 +250,21 @@
     }
 
     function submitContact() {
-        console.log("In subContact()!");
-       
-        
         closeContactModal();
     }
 
-    var contactList = <%- contactList %>
+    function compare(a, b) {
+        if (a.fullName.toLowerCase() < b.fullName.toLowerCase())
+            return -1;
+        if (a.fullName.toLowerCase() > b.fullName.toLowerCase())
+            return 1;
+        return 0;
+    }
+
+    var contactList = <%- contactList %>;
+    var user = <%- JSON.stringify(user) %>;
+
+    contactList.sort(compare);
 
     $(document).ready(function() {
         var burger = document.querySelector('.burger');
@@ -309,9 +302,16 @@
                     this.activeContact = contact;
                 },
                 deleteContact: function() {
+                    var deleteObject = { contactID: this.activeContact._id };
+                    $('.card').removeClass('active');
 
-
-
+                    $.ajax({
+                        type: "POST",
+                        url: "/<%- user._id %>/deletecontact",
+                        data: deleteObject,
+                        dataType: "json"
+                    });
+                    
                     this.contacts.splice(this.contacts.indexOf(this.activeContact), 1);
                     document.querySelector('.no-contact-view').classList.remove('is-hidden');
                     document.querySelector('.contact-view').classList.add('is-hidden');
@@ -326,7 +326,37 @@
                         company: $('.company-input').val(),
                         email: $('.email-input').val()
                     };
-                    this.contacts.push(contactToAdd);
+                    var self = this;
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/<%- user._id %>/addcontact",
+                        data: contactToAdd,
+                        dataType: "json",
+                        success: function(data) {
+                            contactToAdd._id = data;
+                            self.contacts.push(contactToAdd);
+                            self.contacts.sort(compare);
+                            self.activeContact = contactToAdd;
+                            self.showContact(contactToAdd, self.contacts.indexOf(contactToAdd));
+                        }
+                    });
+                },
+                search: function() {
+                    var input = $('.search').val();
+                    var queryObject = { query: input };
+                    var self = this;
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/<%- user._id %>/searchcontact",
+                        data: queryObject,
+                        dataType: "json",
+                        success: function(data) {
+                            self.contacts = data;
+                            self.contacts.sort(compare);
+                        }
+                    });
                 }
             }
         });
