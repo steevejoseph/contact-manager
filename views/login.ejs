@@ -137,7 +137,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login to Coma</title>
-    <link rel="stylesheet" href="css/mystyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
@@ -147,43 +146,37 @@
   <body>
     
     
-    <!-- START NAV -->
-    <nav class="navbar">
-      <div class="container">
-        <div class="navbar-brand">
-          <span class="navbar-burger burger" data-target="navbarMenu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-        </div>
-        
-        <div id="navbarMenu" class="navbar-menu">
-          <div class="navbar-start">
-            <h3 class="title" id="navbar-title">Coma</h3>
+     <!-- START NAV -->
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <span class="navbar-burger burger" data-target="navbarMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
           </div>
           
-          <div class="navbar-end">
-            <a href="landing.ejs" class="navbar-item">
-                <span>Home</span>
+          <div id="navbarMenu" class="navbar-menu">
+            <div class="navbar-end">
+              <a href="landing.ejs" class="navbar-item">
+                Home
               </a>
-            <a href="landing.ejs" class="navbar-item">
-              Team
-            </a>
-                  
-            <a class="navbar-item is-active" id="nav-bar-login">
-              <span>Login</span>
-            </a>   
-              
-            <a class="navbar-item is-active" id="navbar-signup">
-              <span>Sign Up</span>
-            </a>  
-
+              <a class="navbar-item">
+                Team
+              </a>
+              <a class="navbar-item is-active" id="navbar-login">
+                <span>Login</span>
+              </a>   
+              <a class="navbar-item" id="navbar-signup">
+                <span>Sign Up</span>
+              </a>  
+            </div>
           </div>
+          
         </div>
-      </div>
-    </nav>
-    <!-- END NAV -->
+      </nav>
+      <!-- END NAV -->
     
     
     <!-- Beginning of Hero -->
