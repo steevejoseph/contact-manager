@@ -127,6 +127,9 @@
                         <div class="control">
                             <button class="button is-danger" v-on:click="deleteContact()">Delete</button>
                         </div>
+                        <div class="control">
+                            <button class="button is-danger" onclick="openContactModal()">Edit</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,7 +142,7 @@
                         <div class="field">
                             <label class="label">First Name</label>
                             <div class="control">
-                                <input id="first-name" class="input first-name-input" type="text" placeholder="First Name" name="firstName">
+                                <input id="first-name" class="input first-name-input" type="text" placeholder="First Name" name="firstName" id="fn">
                             </div>
                         </div>
 
@@ -188,11 +191,10 @@
                                     <i class="fa fa-envelope"></i>
                                 </span>
                             </div>
-                        </div>
 
                         <div class="field is-grouped">
                             <div class="control">
-                                <button class="button is-light" onclick="submitContact()" v-on:click="addContact()">Submit</button>
+                                <button class="button is-light" v-on:click="addContact()">Submit</button>
                             </div>
                             <div class="control">
                                 <button class="button is-danger" onclick="closeContactModal()">Cancel</button>
@@ -220,8 +222,8 @@
     }
 
     function closeContactModal() {
-        var modal = document.querySelector('.contactModal');
-        modal.classList.toggle('is-active');
+            var modal = document.querySelector('.contactModal');
+            modal.classList.toggle('is-active');
     }
 
     function fillContactModal() {
@@ -247,10 +249,6 @@
         noContactView.classList.add('is-hidden');
         var contactView = document.querySelector('.contact-view');
         contactView.classList.remove('is-hidden');
-    }
-
-    function submitContact() {
-        closeContactModal();
     }
 
     function compare(a, b) {
@@ -326,9 +324,41 @@
                         company: $('.company-input').val(),
                         email: $('.email-input').val()
                     };
+                    
                     var self = this;
-
-                    $.ajax({
+                    
+                    // Creates invalid messages/flags for following logic
+                    var invalidMessage = "Invalid Input!";
+                    var invalidFlag = 0;
+                    
+                    // Logic brick that chews through each field and checks if they are valid
+                    // Checks through firstName to see if a valid length. If not increment invalidFlag and add corresponding error message to the error message
+                    if(contactToAdd.firstName.length == 0) {
+                        invalidFlag++;
+                        invalidMessage = invalidMessage + "\n   - Invalid First Name! Contact must have a name.";  
+                    } 
+                    // If mobilePhone is not blank and less than a correct length deal with the error flags and messages
+                    if(contactToAdd.mobilePhone.length != 0 && contactToAdd.mobilePhone.length < 10) {
+                        invalidFlag++;
+                        invalidMessage = invalidMessage + "\n   - Invalid Mobile Phone number! Must have at least 10 digits.";
+                    }
+                    // Same as above but with homePhone
+                    if(contactToAdd.homePhone.length != 0 && contactToAdd.homePhone.length < 10) {
+                        invalidFlag++;
+                        invalidMessage = invalidMessage + "\n   - Invalid Home Phone number! Must have at least 10 digits.";  
+                    }
+                    // As long as Email is not blank search for the '@' symbol. If not present update errors
+                    if(contactToAdd.email.length != 0 && contactToAdd.email.search("@") == -1) {
+                        invalidFlag++;
+                        invalidMessage = invalidMessage + "\n   - Invalid Email! Must include the '@' symbol.";
+                    }
+                    
+                    //If an error has been detected alert the user...
+                    if(invalidFlag > 0) {
+                        alert(invalidMessage);
+                    // ...otherwise begin the process of adding the contact to the database
+                    } else {
+                        $.ajax({
                         type: "POST",
                         url: "/<%- user._id %>/addcontact",
                         data: contactToAdd,
@@ -339,8 +369,11 @@
                             self.contacts.sort(compare);
                             self.activeContact = contactToAdd;
                             self.showContact(contactToAdd, self.contacts.indexOf(contactToAdd));
-                        }
-                    });
+                            }
+                        });
+                        // Changed the submit button above to only call the add function with closeContactModal now only being called here. (Keeps the window open if invalid contact is attempted)
+                        closeContactModal();
+                    }
                 },
                 search: function() {
                     var input = $('.search').val();
