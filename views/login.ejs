@@ -93,10 +93,24 @@
       width: 70%;
     }
     
+   
+    
     .modal-input {
       margin-left: 65px;
     }
+    
+    .modal-card-title {
+      
+      margin-top: 20px;
+      margin-bottom: 30px;
+    }
      
+   .modal-card-body {
+     margin-top: 100px;
+     border-radius: 25px;
+     
+     
+   }
      
     
     /*      This is all for the little 'or' lines on the login card lol
@@ -137,10 +151,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login to Coma</title>
-    <link rel="stylesheet" href="css/mystyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
   </head>
 
 
@@ -170,13 +185,9 @@
             <a href="landing.ejs" class="navbar-item">
               Team
             </a>
-                  
-            <a class="navbar-item is-active" id="nav-bar-login">
-              <span>Login</span>
-            </a>   
               
-            <a class="navbar-item is-active" id="navbar-signup">
-              <span>Sign Up</span>
+            <a class="navbar-item is-active signup" id="navbar-signup">
+              <span>My Account</span>
             </a>  
 
           </div>
@@ -215,13 +226,13 @@
                  
                     <p><h6 class="subtitle is-6 has-text-centered">or</h6></p>
                       <button class="button is-centered is-medium is-white" id="create-acct-button">Create an Account</button>
-                  <div>
-                </div>
-              </div>
-            </div>    
+                  </div>
+                </div>    
             <!-- end of card -->
             
-          </div>
+              </div>
+            </div>
+        </div>
         </div>
       </section>
       <!-- End of Hero -->
@@ -229,15 +240,13 @@
   
  
    <!-- START OF MODAL -->
+   
     <div class="modal" id="theModal">
       <div class="modal-background"></div>
-        <div class="modal-card">
-          <header class="modal-card-head">
-            <p class="modal-card-title">Create an Account</p>
-            <button class="delete" id="close-button" aria-label="close"></button>
-          </header>
-          
-          <section class="modal-card-body">
+        <div class="modal-content">
+          <section class="modal-card-body column is-10 is-offset-1">
+            <p class="modal-card-title has-text-centered">Create an Account</p>
+            <button class="modal-close is-large" id="close-button" aria-label="close"></button>
             <form class="control" action="/signup" method="POST">
               <div class="field">
                 <input class="input modal-input " id="modal-first-name" type="text" name="firstName" placeholder="First Name" required>
@@ -256,17 +265,24 @@
               <div class="field">
                 <input class="input modal-input" id="modal-password" type="password" name="password" placeholder="Password" required>
               </div>
-              <input class="button is-centered is-info modal-input" type="submit" id="signupBtn" value="Sign Up">
+            
+            
+              <div class="field is-grouped">
+                <div class="control">
+                    <input class="button is-centered is-info modal-input" type="submit" id="signupBtn" value="Sign Up">
+                </div>
+                <div class="control">
+                    <button class="button modal-input" id="cancel-button">Cancel</button>
+                </div>
+              </div>
             </form>
           </section>
-
-          <footer class="modal-card-foot">
-            <button class="button modal-input" id="cancel-button">Cancel</button>
-          </footer>
           
-        </div>
-      </div>
-    </div>
+          
+       </div>
+     </div>
+ 
+  
     <!-- END OF MODAL --> 
     
      
@@ -295,6 +311,20 @@
 
       closeBtn.addEventListener("click", function(){
 	      modal.style.display = "none";
+      });
+      
+      
+      
+      $(document).ready(function() {
+
+      // Check for click events on the navbar burger icon
+      $(".navbar-burger").click(function() {
+    
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          $(".navbar-burger").toggleClass("is-active");
+          $(".navbar-menu").toggleClass("is-active");
+    
+        });
       });
 
     </script>

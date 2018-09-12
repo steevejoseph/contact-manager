@@ -25,8 +25,8 @@
         margin-left: 50px;
       }
       
-      #hero-title
-      {
+      
+      #hero-title {
         color: #FFFFFF;
         font-size: 60px;
         margin-top: -60px;
@@ -37,7 +37,6 @@
         margin-top: 30px;
         font-size: 20px bold;
       }
-      
       
       
       /*** MIDDLE HERO ***/
@@ -62,7 +61,7 @@
         font-family: 'Lato', sans-serif;
         color: #F8F4E2;
         font-size: 60px;
-        margin-left: 90px;
+       
         margin-top: 40px;
       }
       
@@ -103,10 +102,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Welcome to Coma</title>
-        <link rel="stylesheet" href="css/mystyles.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
         <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
-        <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>            
+        <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     
     
@@ -132,11 +131,8 @@
               <a class="navbar-item">
                 Team
               </a>
-              <a href="login.ejs" class="navbar-item" id="navbar-login">
-                <span>Login</span>
-              </a>   
               <a href="login.ejs" class="navbar-item" id="navbar-signup">
-                <span>Sign Up</span>
+                <span>My Account</span>
               </a>  
             </div>
           </div>
@@ -169,26 +165,32 @@
         <div class="hero-body">
           <div class="container">
             
-            <div class="title">
-              <h1 class="title" id="hero-middle-title">
-               So many features
-              </h1> 
-              <h2 class="subtitle" id="hero-middle-subtitle">
-                Something quirky here.
-              </h2>
-            </div>
-            
             <div class="columns">
               <div class="column hero-middle-column">
-                Add
+                <p class="has-text-centered">
+                  <span class="icon is-medium">
+                    <i class="fas fa-user-plus"></i>
+                  </span>
+                  <p class="has-text-centered">Add</p>
+                </p>
               </div>
               
               <div class="column hero-middle-column">
-                Search
+                <p class="has-text-centered">
+                  <span class="icon is-medium">
+                    <i class="fas fa-search"></i>
+                  </span>
+                  <p class="has-text-centered">Search</p>
+                </p>
               </div>
               
               <div class="column hero-middle-column">
-                Delete
+                <p class="has-text-centered">
+                  <span class="icon is-medium">
+                    <i class="fas fa-trash"></i>
+                  </span>
+                  <p class="has-text-centered">Delete</p>
+                </p>
               </div>
             </div>
               
@@ -199,10 +201,11 @@
       <!-- END of MIDDLE HERO -->
       
       
-      
+    
        <!-- START OF BOTTOM HERO -->
        
-       <!-- Meet the team hero -->
+       <!-- Meet the team hero 
+  
       <section class="hero" id="hero-bottom">
         <div class="hero-body">
           <div class="container">
@@ -215,12 +218,12 @@
       <!-- End of Meet the Team hero -->
             
       
-      <!-- START OF PICTURE HERO -->
+      <!-- START OF PICTURE HERO 
        <section class="hero is-full-height" id="hero-team">
         <div class="hero-body">
           <div class="container">
             
-            <!-- Top row -->
+            <!-- Top row 
             <div class="columns" id="team-column-top">
               <div class="column" id="team-left-column">
                 <figure class="image is-128x128">
@@ -243,7 +246,7 @@
             <!-- end of top row -->
             
             
-            <!-- middle row -->
+            <!-- middle row 
             <div class="columns">
               <div class="column" id="team-left-column">
                 <figure class="image is-128x128">
@@ -265,7 +268,7 @@
             </div>
             <!-- end of middle row -->
             
-            <!-- bottom row -->
+            <!-- bottom row 
             <div class="columns">
               <div class="column" id="team-left-column">
                 <figure class="image is-128x128">
@@ -285,12 +288,13 @@
                 </figure>
               </div>
             </div>
-            <!-- end of bottom row -->
+            <!-- end of bottom row 
             
           </div>
         </div>
       </section>
       <!-- End of Picture Hero -->
+     
       
       
        <!-- START OF FOOTER HERO -->
@@ -298,15 +302,33 @@
         <div class="hero-body">
           <div class="container">
             <h1 class="title" id="hero-footer-title">
-              Thank you to our sponsors
+              <span class="icon">
+                <i class="fas fa-code"></i>
+              </span>
+              Check out the source code for Coma on <a href="https://github.com/steevejoseph/contact-manager">GitHub</a>
+              
             </h1> 
-            <h2 class="subtitle" id="hero-footer-subtitle">
-              Fanta and Supreme plus add privacy policy or terms of service lol
-            </h2>
           </div>
         </div>
       </section>
         
+        
+        
+    <script type="text/javascript">
+    
+      $(document).ready(function() {
+
+      // Check for click events on the navbar burger icon
+      $(".navbar-burger").click(function() {
+    
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          $(".navbar-burger").toggleClass("is-active");
+          $(".navbar-menu").toggleClass("is-active");
+    
+        });
+      });
+      
+    </script>
     
   </body>
 </html>
