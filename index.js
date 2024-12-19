@@ -12,10 +12,10 @@ var express 				= require("express"),
 // Include the Schemas/Models
 var	Contact  = require("./models/contact.js"),
 	User     = require("./models/user.js");
+require("dotenv").config();
 
 // Connect to URL set in env variables.
-mongoose.connect('mongodb://team7:ABC123@ds133152.mlab.com:33152/contact-manager', {useNewUrlParser: true});
-// mongoose.connect(process.env.DBURL, {useNewUrlParser:true});
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
 
 app.set("view engine", "ejs");
 
@@ -209,7 +209,8 @@ app.post("/api/users/new", function(req, res){
 	});
 });
 
-app.listen(process.env.PORT, process.env.IP, function(){
-	console.log('Server running!');
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, process.env.IP, function(){
+	console.log(`Server running on port: ${PORT}`);
 });
 
