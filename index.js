@@ -15,6 +15,7 @@ var	Contact  = require("./models/contact.js"),
 require("dotenv").config();
 
 // Connect to URL set in env variables.
+console.log(`MongoDB URL:<${process.env.MONGODB_URL}>`);
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
 
 app.set("view engine", "ejs");
